@@ -1,0 +1,4 @@
+# ignore build related files
+*.o
+outfile.*
+.deps/
