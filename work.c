@@ -3,7 +3,9 @@
 #include "header.h"
 
 uint8_t frame[512];
-int bird[9][21] = {{0,16},{2,16},{3,16},{0,17},{1,17},{2,17},{0,18},{1,18},{2,18}};
+int bird[9][2] = {{0,16},{2,16},{3,16},{0,17},{1,17},{2,17},{0,18},{1,18},{2,18}};
+int count = 0;
+int jump = 0;
 
 void new_frame(void)
 {
@@ -44,31 +46,82 @@ void draw_point(int x, int y)
     frame[((y/8)*128)+x] &= ~(0x1 << (y%8));
 }
 
+int getbtns( void )
+{
+    // Returns state of btn4
+    int state = ((PORTD & 0x80) >> 7);
+
+    return state;
+}
+
+void user_isr( void )
+{
+    if ((IFS(0) & 0x100) == 0x100)
+    {
+        IFS(0) &= ~0x100; // clears timer 2 interrupt flag
+            count++;
+            /* Clears frame */
+            new_frame();
+
+            /* Draws bird in frame */
+            int i = 0;
+            for (i; i < 9; i++)
+            {
+                draw_point(bird[i][0],bird[i][1]);
+            }
+
+            /* Sends frame to display */
+            display_image(frame);
+
+            if (count >= 4)
+            {
+                count = 0;
+                /* Moves bird 1 pixel along the x-axis*/
+                for (i = 0; i < 9; i++)
+                {
+                    if (bird[i][0] >= 127)
+                    bird[i][0] = 0;
+                    else
+                    (bird[i][0])++;
+
+                    if (bird[i][1] >= 31)
+                        bird[i][1] = 0;
+                    else
+                    {
+                        if (jump <= 0)
+                            (bird[i][1])++;
+                        else
+                        {
+                            (bird[i][1])--;
+                        }
+                    }
+                }
+                if (jump > 0)
+                    jump--;
+
+                /*
+                if (jump == 0)
+                    IECSET(1) = 1;*/
+
+            }
+        }
+
+        /*
+    if (IFS(0) & 1)
+    {
+        IFSCLR(1) = 1;
+        if (jump == 0)
+            jump = 5;
+        IECCLR(1) = 1;
+    }
+    */
+}
+
 void work(void)
 {
-    /* Clears frame */
-    new_frame();
-
-    /* Draws bird in frame */
-    int i = 0;
-    for (i; i < 9; i++)
+    if (getbtns())
     {
-        draw_point(bird[i][0],bird[i][1]);
+        if (jump == 0)
+            jump = 5;
     }
-
-    /* Sends frame to display */
-    display_image(frame);
-
-    /* Moves bird 1 pixel along the x-axis*/
-    for (i = 0; i < 9; i++)
-    {
-        if (bird[i][0] >= 127)
-            bird[i][0] = 0;
-        else
-            (bird[i][0])++;
-    }
-
-    /* Delay */
-    quicksleep(1000000);
-
 }

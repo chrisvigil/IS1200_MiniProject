@@ -50,9 +50,39 @@ void oledhost_init(void)
 
 }
 
+void btn_init(void)
+{
+	TRISDSET = 0x80; // Set btn 4 as input
+}
+
+void interupt_int(void)
+{
+	T2CON = 0x70; // sets prescaler to 256 and stops timer
+    PR2 = 3125;  // PR2 = (80000000/256)/100 , sets period register
+    TMR2 = 0; // set counter to 0;
+
+    IEC(0) |= (1 << 8); // Interrupt enable control for timer 2
+    IPC(2) = (1 << 2); // configures interupt pritorty  for timer 2
+    IFS(0) &= ~0x100; // clears timer 2 interrupt flag
+
+	/*
+	CNENSET = 1 << 16; // sets CN for CN16 ie btn4
+	IECSET(1) = 1; // enable interups for CN
+	IPCSET(6) = 1 << 19; // set interupt pritorty for CN
+	IFSCLR(1) = 1; // clears CN interupt flag
+	*/
+
+
+	asm volatile("ei");
+
+    T2CONSET = 0x8000; // starts counter;
+}
+
 void init(void)
 {
     system_init();
     oledhost_init();
 	display_init();
+	btn_init();
+	interupt_int();
 }
