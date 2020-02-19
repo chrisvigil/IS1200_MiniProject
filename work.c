@@ -36,7 +36,7 @@ void draw_point(int x, int y)
         Each index is a column.
 
         To draw a point, index is caululated with the formula:
-        ( y / (column hight) ) * ( display width )
+        ( y / (column hight) ) + ( display width )
 
         a pixel is then added by shifting pixel into the
         correct position with:

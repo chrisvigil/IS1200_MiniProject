@@ -57,7 +57,7 @@ void btn_init(void)
 
 void interupt_int(void)
 {
-	T2CON = 0x70; // sets prescaler to 256 and stops timer
+	  T2CON = 0x70; // sets prescaler to 256 and stops timer
     PR2 = 3125;  // PR2 = (80000000/256)/100 , sets period register
     TMR2 = 0; // set counter to 0;
 
