@@ -11,9 +11,16 @@ void new_frame(void)
 {
     /* sets all pixels in frame to off */
     int i = 0;
-    for (i = 0; i < 512; i++)
+    for (i = 0; i < 384; i++)
     {
         frame[i] = 255;
+    }
+    for (i; i < 512; i++)
+    {
+        if (i%2)
+            frame[i] = 0xbf;
+        else
+            frame[i] = 0x7f;
     }
 }
 
@@ -36,7 +43,7 @@ void draw_point(int x, int y)
         Each index is a column.
 
         To draw a point, index is caululated with the formula:
-        ( y / (column hight) ) * ( display width )
+        ( y / (column hight) ) + ( display width )
 
         a pixel is then added by shifting pixel into the
         correct position with:
