@@ -24,6 +24,28 @@ void new_frame(void)
     }
 }
 
+void bird_reset(void)
+{
+    bird [0][0] = 0;
+    bird [0][1] = 16;
+    bird [1][0] = 2;
+    bird [1][1] = 16;
+    bird [2][0] = 3;
+    bird [2][1] = 16;
+    bird [3][0] = 0;
+    bird [3][1] = 17;
+    bird [4][0] = 1;
+    bird [4][1] = 17;
+    bird [5][0] = 2;
+    bird [5][1] = 17;
+    bird [6][0] = 0;
+    bird [6][1] = 18;
+    bird [7][0] = 1;
+    bird [7][1] = 18;
+    bird [8][0] = 2;
+    bird [8][1] = 18;
+}
+
 void draw_point(int x, int y)
 {
     /*  Draws a point in the frame with x,y cordinates
@@ -80,17 +102,26 @@ void user_isr( void )
             /* Sends frame to display */
             display_image(frame);
 
+            // detectes top and bottom edge
+            if (bird[8][1] >= 30)
+                bird_reset();
+            if (bird[0][1] <= -1)
+                bird_reset();
+
+            // updates birds possition
             if (count >= 4)
             {
                 count = 0;
                 /* Moves bird 1 pixel along the x-axis*/
                 for (i = 0; i < 9; i++)
                 {
+                    // x values
                     if (bird[i][0] >= 127)
                     bird[i][0] = 0;
                     else
                     (bird[i][0])++;
 
+                    // y values
                     if (bird[i][1] >= 31)
                         bird[i][1] = 0;
                     else
