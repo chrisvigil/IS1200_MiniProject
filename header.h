@@ -8,4 +8,7 @@ extern const uint8_t const displaydata[128];
 extern const uint8_t const displaydata2[256];
 extern const uint8_t const displaydata3[512];
 void work(void);
+void stage1_int(void);
+void stage1_work(void);
+int stage;
 //void data_init(void);
