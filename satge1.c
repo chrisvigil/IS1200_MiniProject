@@ -46,34 +46,7 @@ void bird_reset(void)
     bird [8][1] = 18;
 }
 
-void draw_point(int x, int y)
-{
-    /*  Draws a point in the frame with x,y cordinates
-        Point [0,0] is located at the top left of the display
-        Point [127,31] is bottom right.
 
-        Display consists of 4 rows, each row consists of
-        128 coloums, each 8 pixels high for a total of 512 coloums.
-
-        Each column is controlled by a 8 bit value with each bit
-        representing a pixel. LSB represents top pixel.
-
-        For example ~0x02 would light second from the top in the coloumn.
-        ~0xaa or ~0x55 would liight every other pixel in the column.
-
-        A full frame is represented as an array of 512 uint8_t values.
-        Each index is a column.
-
-        To draw a point, index is caululated with the formula:
-        ( y / (column hight) ) + ( display width )
-
-        a pixel is then added by shifting pixel into the
-        correct position with:
-        column &= ~(1 << (y % (column hight)))
-
-        */
-    frame[((y/8)*128)+x] &= ~(0x1 << (y%8));
-}
 
 int getbtns( void )
 {
@@ -92,7 +65,7 @@ void stage1_int(void){
     int i = 0;
     for (i; i < 9; i++)
     {
-        draw_point(bird[i][0],bird[i][1]);
+        draw_point(bird[i][0],bird[i][1], frame);
     }
 
     /* Sends frame to display */

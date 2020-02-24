@@ -11,4 +11,5 @@ void work(void);
 void stage1_int(void);
 void stage1_work(void);
 int stage;
+void draw_point(int x, int y, uint8_t *cframe);
 //void data_init(void);

@@ -33,7 +33,7 @@ int main( void )
     init();
     stage = 1;
 
-    while (1)
+    while (stage == 1)
     {
         stage1_work();
     }

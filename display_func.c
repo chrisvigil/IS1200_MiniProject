@@ -80,28 +80,31 @@ void display_image(const uint8_t *data) {
 	}
 }
 
-/*
-void display_update(void) {
-	int i, j, k;
-	int c;
-	for(i = 0; i < 4; i++) {
-		DISPLAY_CHANGE_TO_COMMAND_MODE;
-		spi_send_recv(0x22);
-		spi_send_recv(i);
+void draw_point(int x, int y, uint8_t *cframe)
+{
+    /*  Draws a point in the frame with x,y cordinates
+        Point [0,0] is located at the top left of the display
+        Point [127,31] is bottom right.
 
-		spi_send_recv(0x0);
-		spi_send_recv(0x10);
+        Display consists of 4 rows, each row consists of
+        128 coloums, each 8 pixels high for a total of 512 coloums.
 
-		DISPLAY_CHANGE_TO_DATA_MODE;
+        Each column is controlled by a 8 bit value with each bit
+        representing a pixel. LSB represents top pixel.
 
-		for(j = 0; j < 16; j++) {
-			c = textbuffer[i][j];
-			if(c & 0x80)
-				continue;
+        For example ~0x02 would light second from the top in the coloumn.
+        ~0xaa or ~0x55 would liight every other pixel in the column.
 
-			for(k = 0; k < 8; k++)
-				spi_send_recv(font[c*8 + k]);
-		}
-	}
+        A full frame is represented as an array of 512 uint8_t values.
+        Each index is a column.
+
+        To draw a point, index is caululated with the formula:
+        ( y / (column hight) ) + ( display width )
+
+        a pixel is then added by shifting pixel into the
+        correct position with:
+        column &= ~(1 << (y % (column hight)))
+
+        */
+    cframe[((y/8)*128)+x] &= ~(0x1 << (y%8));
 }
-*/
