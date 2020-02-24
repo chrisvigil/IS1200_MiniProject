@@ -9,26 +9,36 @@ uint8_t jump = 0;
 
 uint8_t pipespaces[3] = {7, 12, 5}; //Random generator, TO DO
 
-int collision(void) //Collision detection
-{
-  // detectes top and bottom edge
-  if (bird[8][1] >= 30)
-      return 1;
-  if (bird[0][1] <= -1)
-      return 1;
 
-  int j = 0;
-  int i = 0;
-  for (j; j < 3; j++)
-  {
+int pipe_collision(int pipe)
+{
+    int i = 0;
     for(i; i < 9; i+=2)  //Checks collision for the four corners of the bird
     {
       //if (bird[i][0] == (30 + (15*i) && pipespaces[i]))  //i är x-värdet, 30 är första pipen
-      if ( (bird[i][0] >= (30 + (20*j)) && bird[i][0] <= (35 + (20*j)) ) && (bird[i][1] <= pipespaces[j] || bird[i][1] >= (pipespaces[j] + 15)))
+      if ( (bird[i][0] >= (30 + (20*pipe)) && bird[i][0] <= (35 + (20*pipe)) ) && (bird[i][1] <= pipespaces[pipe] || bird[i][1] >= (pipespaces[pipe] + 15)))
         return 1;
     }
-  }
-  return 0;
+    return 0;
+}
+
+int collision(void) //Collision detection
+{
+    // detectes top and bottom edge
+    if (bird[8][1] >= 30)
+        return 1;
+    if (bird[0][1] <= -1)
+        return 1;
+
+    int col = 0;
+    if(bird[0][0] > 69)
+        col = pipe_collision(2);
+    else if (bird[0][0] > 49)
+        col = pipe_collision(1);
+    else if (bird[0][0] > 29)
+        col = pipe_collision(0);
+
+    return col;
 }
 
 void new_frame_1(void)
