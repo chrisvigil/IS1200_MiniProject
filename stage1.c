@@ -7,6 +7,30 @@ uint8_t bird[9][2] = {{0,16},{2,16},{3,16},{0,17},{1,17},{2,17},{0,18},{1,18},{2
 uint8_t count = 0;
 uint8_t jump = 0;
 
+uint8_t pipespaces[3] = {7, 12, 5}; //Random generator, TO DO
+
+int collision(void) //Collision detection
+{
+  // detectes top and bottom edge
+  if (bird[8][1] >= 30)
+      return 1;
+  if (bird[0][1] <= -1)
+      return 1;
+
+  int j = 0;
+  int i = 0;
+  for (j; j < 3; j++)
+  {
+    for(i; i < 9; i+=2)  //Checks collision for the four corners of the bird
+    {
+      //if (bird[i][0] == (30 + (15*i) && pipespaces[i]))  //i är x-värdet, 30 är första pipen
+      if ( (bird[i][0] >= (30 + (20*j)) && bird[i][0] <= (35 + (20*j)) ) && (bird[i][1] <= pipespaces[j] || bird[i][1] >= (pipespaces[j] + 15)))
+        return 1;
+    }
+  }
+  return 0;
+}
+
 void new_frame_1(void)
 {
     /* sets all pixels in frame to off
@@ -117,18 +141,12 @@ void stage1_int(void){
         draw_point(bird[i][0],bird[i][1], frame);
     }
 
-    draw_pipe(30, 12);
-    draw_pipe(45, 7);
-    draw_pipe(60, 10);
+    draw_pipe(30, pipespaces[0]);
+    draw_pipe(50, pipespaces[1]);
+    draw_pipe(70, pipespaces[2]);
 
     /* Sends frame to display */
     display_image(frame);
-
-    // detectes top and bottom edge
-    if (bird[8][1] >= 30)
-        bird_reset();
-    if (bird[0][1] <= -1)
-        bird_reset();
 
     // updates birds possition
     if (count >= 4)
@@ -160,6 +178,11 @@ void stage1_int(void){
             jump--;
 
     }
+    if(collision())
+    {
+      bird_reset();
+    }
+
 
         /*
         if (jump == 0)
