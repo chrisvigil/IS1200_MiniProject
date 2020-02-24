@@ -9,7 +9,7 @@ uint8_t jump = 0;
 
 void new_frame_1(void)
 {
-    /* sets all pixels in frame to off */
+    /* sets all pixels in frame to off
     int i = 0;
     for (i = 0; i < 384; i++)
     {
@@ -21,7 +21,30 @@ void new_frame_1(void)
             frame[i] = 0xbf;
         else
             frame[i] = 0x7f;
+    }*/
+
+    int i = 0;
+    int j;
+    for (i; i < 3; i++)
+    {
+        for (j = 0; j < 91; j++)
+            frame[(128 * i) + j] = 255;
+        for (j; j < 128; j ++)
+            frame[(128 * i) + j] = 0;
     }
+    for (i = 384; i < 475; i++)
+    {
+        if (i%2)
+            frame[i] = 0xbf;
+        else
+            frame[i] = 0x7f;
+    }
+    for (i; i < 512; i++)
+    {
+        frame[i] = 0;
+    }
+
+
 }
 
 void bird_reset(void)
@@ -99,7 +122,7 @@ void stage1_int(void){
         for (i = 0; i < 9; i++)
         {
             // x values
-            if (bird[i][0] >= 127)
+            if (bird[i][0] >= 90)
             bird[i][0] = 0;
             else
             (bird[i][0])++;
