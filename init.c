@@ -53,6 +53,7 @@ void oledhost_init(void)
 void btn_init(void)
 {
 	TRISDSET = 0x80; // Set btn 4 as input
+	TRISFSET = 2; // Sets btn1 as input
 }
 
 void interupt_int(void)

@@ -105,9 +105,12 @@ void stage1_int(void){
 
 void stage1_work(void)
 {
-    if (getbtns())
+    int btnstate = getbtns();
+    if (btnstate & 8)
     {
         if (jump == 0)
             jump = 5;
     }
+    else if (btnstate & 1)
+        stage = 0;
 }

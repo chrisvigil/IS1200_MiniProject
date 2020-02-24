@@ -89,7 +89,7 @@ void stage0_int(void)
 
 void stage0_work(void)
 {
-    if (getbtns())
+    if (getbtns() & 8)
     {
         stage = 1;
     }

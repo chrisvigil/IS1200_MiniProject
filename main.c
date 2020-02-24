@@ -42,14 +42,18 @@ int main( void )
     init();
     stage = 0;
 
-    while (stage == 0)
+    while (1)
     {
-        stage0_work();
+        while (stage == 0)
+        {
+            stage0_work();
+        }
+
+        while (stage == 1)
+        {
+            stage1_work();
+        }
     }
 
-    while (stage == 1)
-    {
-        stage1_work();
-    }
 
 }
