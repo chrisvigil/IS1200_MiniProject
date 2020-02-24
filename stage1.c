@@ -46,6 +46,26 @@ void bird_reset(void)
     bird [8][1] = 18;
 }
 
+draw_pipe(uint8_t x_point, uint8_t y_point) //Punkten i början på sista raden där glappet börjar
+{
+  int i = 0; //y-värdet
+  int j = 0; //x-värdet
+  for (i; i < y_point; i++)
+  {
+      for (j = x_point; j < (x_point+5); j++)
+        draw_point(j, i, frame); //Anropas med x, y, och vilken frame den ska rita i
+  }
+
+  i+=12;
+  for (i; i < 32; i++)
+  {
+      for (j = x_point; j < (x_point+5); j++)
+        draw_point(j, i, frame); //Anropas med x, y, och vilken frame den ska rita i
+  }
+}
+
+
+
 void stage1_int(void){
     count++;
     /* Clears frame */
@@ -57,6 +77,10 @@ void stage1_int(void){
     {
         draw_point(bird[i][0],bird[i][1], frame);
     }
+
+    draw_pipe(30, 12);
+    draw_pipe(45, 7);
+    draw_pipe(60, 10);
 
     /* Sends frame to display */
     display_image(frame);
