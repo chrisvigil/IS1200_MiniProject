@@ -52,16 +52,32 @@ draw_pipe(uint8_t x_point, uint8_t y_point) //Punkten i början på sista raden 
   int j = 0; //x-värdet
   for (i; i < y_point; i++)
   {
-      for (j = x_point; j < (x_point+5); j++)
+      draw_point(x_point, i, frame);
+      for (j = (x_point+2); j < (x_point+5); j++)
+      {
+        draw_point(j, i, frame); //Anropas med x, y, och vilken frame den ska rita i
+      }
+  }
+
+  for (j = (x_point); j < (x_point+5); j++)
+  {
+    draw_point(j, i, frame); //Anropas med x, y, och vilken frame den ska rita i
+  }
+
+  i+=15;
+
+  for (j = (x_point); j < (x_point+5); j++)
+  {
+    draw_point(j, i, frame); //Anropas med x, y, och vilken frame den ska rita i
+  }
+
+  for (i; i < 32; i++)
+  {
+      draw_point(x_point, i, frame);
+      for (j = (x_point+2); j < (x_point+5); j++)
         draw_point(j, i, frame); //Anropas med x, y, och vilken frame den ska rita i
   }
 
-  i+=12;
-  for (i; i < 32; i++)
-  {
-      for (j = x_point; j < (x_point+5); j++)
-        draw_point(j, i, frame); //Anropas med x, y, och vilken frame den ska rita i
-  }
 }
 
 
@@ -99,7 +115,7 @@ void stage1_int(void){
         for (i = 0; i < 9; i++)
         {
             // x values
-            if (bird[i][0] >= 127)
+            if (bird[i][0] >= 90)
             bird[i][0] = 0;
             else
             (bird[i][0])++;
