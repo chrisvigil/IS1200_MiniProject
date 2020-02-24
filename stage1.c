@@ -3,11 +3,11 @@
 #include "header.h"
 
 uint8_t frame[512];
-int bird[9][2] = {{0,16},{2,16},{3,16},{0,17},{1,17},{2,17},{0,18},{1,18},{2,18}};
-int count = 0;
-int jump = 0;
+uint8_t bird[9][2] = {{0,16},{2,16},{3,16},{0,17},{1,17},{2,17},{0,18},{1,18},{2,18}};
+uint8_t count = 0;
+uint8_t jump = 0;
 
-void new_frame(void)
+void new_frame_1(void)
 {
     /* sets all pixels in frame to off */
     int i = 0;
@@ -46,20 +46,10 @@ void bird_reset(void)
     bird [8][1] = 18;
 }
 
-
-
-int getbtns( void )
-{
-    // Returns state of btn4
-    int state = ((PORTD & 0x80) >> 7);
-
-    return state;
-}
-
 void stage1_int(void){
     count++;
     /* Clears frame */
-    new_frame();
+    new_frame_1();
 
     /* Draws bird in frame */
     int i = 0;

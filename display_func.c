@@ -80,7 +80,7 @@ void display_image(const uint8_t *data) {
 	}
 }
 
-void draw_point(int x, int y, uint8_t *cframe)
+void draw_point(uint8_t x, uint8_t y, uint8_t *cframe)
 {
     /*  Draws a point in the frame with x,y cordinates
         Point [0,0] is located at the top left of the display

@@ -14,7 +14,16 @@ void user_isr( void )
     if ((IFS(0) & 0x100) == 0x100)
     {
         IFS(0) &= ~0x100; // clears timer 2 interrupt flag
-        stage1_int();
+        switch (stage){
+            case 0:
+                stage0_int();
+                break;
+
+            case 1:
+                stage1_int();
+                break;
+        }
+
     }
 
         /*
@@ -31,7 +40,12 @@ void user_isr( void )
 int main( void )
 {
     init();
-    stage = 1;
+    stage = 0;
+
+    while (stage == 0)
+    {
+        stage0_work();
+    }
 
     while (stage == 1)
     {
