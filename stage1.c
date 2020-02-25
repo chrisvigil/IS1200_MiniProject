@@ -15,7 +15,6 @@ int pipe_collision(int pipe)
     int i = 0;
     for(i; i < 9; i+=2)  //Checks collision for the four corners of the bird
     {
-      //if (bird[i][0] == (30 + (15*i) && pipespaces[i]))  //i är x-värdet, 30 är första pipen
       if ( (bird[i][0] >= (30 + (20*pipe)) && bird[i][0] <= (35 + (20*pipe)) ) && (bird[i][1] <= pipespaces[pipe] || bird[i][1] >= (pipespaces[pipe] + 15)))
         return 1;
     }
@@ -43,20 +42,7 @@ int collision(void) //Collision detection
 
 void new_frame_1(void)
 {
-    /* sets all pixels in frame to off
-    int i = 0;
-    for (i = 0; i < 384; i++)
-    {
-        frame[i] = 255;
-    }
-    for (i; i < 512; i++)
-    {
-        if (i%2)
-            frame[i] = 0xbf;
-        else
-            frame[i] = 0x7f;
-    }*/
-
+    // Draws base frame for scene
     int i = 0;
     int j;
     for (i; i < 3; i++)
@@ -83,6 +69,7 @@ void new_frame_1(void)
 
 void bird_reset(void)
 {
+    // Resets birds possition to start
     bird [0][0] = 0;
     bird [0][1] = 16;
     bird [1][0] = 2;
@@ -105,6 +92,10 @@ void bird_reset(void)
 
 draw_pipe(uint8_t x_point, uint8_t y_point) //Punkten i början på sista raden där glappet börjar
 {
+  // Draws top and bootom pipe-pair in frame
+  // x_point gives x-cordinate of the lfet edge of the pipe
+  // y_point gives y-cordinate of where the top pipe ends
+
   int i = 0; //y-värdet
   int j = 0; //x-värdet
   for (i; i < y_point; i++)
@@ -140,6 +131,8 @@ draw_pipe(uint8_t x_point, uint8_t y_point) //Punkten i början på sista raden 
 
 
 void stage1_int(void){
+    // Interrupt handaling for stage 1
+
     count++;
     /* Clears frame */
     new_frame_1();
@@ -151,9 +144,14 @@ void stage1_int(void){
         draw_point(bird[i][0],bird[i][1], frame);
     }
 
+    // Draws pipes
+    for (i = 0; i < 3; i++)
+      draw_pipe(30 + (20 * i), pipespaces[i]);
+
+    /*
     draw_pipe(30, pipespaces[0]);
     draw_pipe(50, pipespaces[1]);
-    draw_pipe(70, pipespaces[2]);
+    draw_pipe(70, pipespaces[2]); */
 
     /* Sends frame to display */
     display_image(frame);
@@ -188,6 +186,8 @@ void stage1_int(void){
             jump--;
 
     }
+
+    // Collision detection
     if(collision())
     {
       bird_reset();
