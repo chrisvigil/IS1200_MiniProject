@@ -44,16 +44,14 @@ int main( void )
 
     while (1)
     {
-        while (stage == 0)
-        {
-            stage0_work();
-        }
-
-        while (stage == 1)
-        {
-            stage1_work();
-        }
+      switch (stage)
+      {
+        case 0:
+          stage0_work();
+          break;
+        case 1:
+          stage1_work();
+          break;
+      }
     }
-
-
 }

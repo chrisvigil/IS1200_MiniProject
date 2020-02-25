@@ -137,6 +137,12 @@ void stage1_int(void){
     /* Clears frame */
     new_frame_1();
 
+    // Collision detection
+    if(collision())
+    {
+      bird_reset();
+    }
+
     /* Draws bird in frame */
     int i = 0;
     for (i; i < 9; i++)
@@ -187,11 +193,7 @@ void stage1_int(void){
 
     }
 
-    // Collision detection
-    if(collision())
-    {
-      bird_reset();
-    }
+
 
 
         /*
@@ -201,7 +203,10 @@ void stage1_int(void){
 
 void stage1_work(void)
 {
-    int btnstate = getbtns();
+  int btnstate;
+  while (stage == 1)
+  {
+    btnstate = getbtns();
     if (btnstate & 8)
     {
         if (jump == 0)
@@ -209,4 +214,6 @@ void stage1_work(void)
     }
     else if (btnstate & 1)
         stage = 0;
+  }
+
 }
