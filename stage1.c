@@ -77,7 +77,62 @@ void new_frame_1(void)
         frame[i] = 0;
     }
 
+    //Letter S
+    frame[98] = 0x90;
+    frame[99] = 0xA8;
+    frame[100] = 0xA8;
+    frame[101] = 0x48;
 
+    //C
+    frame[103] = 0x70;
+    frame[104] = 0x88;
+    frame[105] = 0x88;
+
+    //O
+    frame[107] = 0x70;
+    frame[108] = 0x88;
+    frame[109] = 0x88;
+    frame[110] = 0x70;
+
+    //R
+    frame[112] = 0xF8;
+    frame[113] = 0x48;
+    frame[114] = 0x48;
+    frame[115] = 0xB0;
+
+    //E
+    frame[117] = 0xF8;
+    frame[118] = 0xA8;
+    frame[119] = 0xA8;
+
+    //number
+    frame[98+128] = 0x7C;
+
+    //B
+    frame[357] = 0x7C;
+    frame[358] = 0x54;
+    frame[359] = 0x54;
+    frame[360] = 0x28;
+
+    //E
+    frame[362] = 0x7C;
+    frame[363] = 0x54;
+    frame[364] = 0x54;
+
+    //S
+    frame[366] = 0x48;
+    frame[367] = 0x54;
+    frame[368] = 0x54;
+    frame[369] = 0x24;
+
+
+    //T
+    frame[371] = 0x04;
+    frame[372] = 0x7C;
+    frame[373] = 0x04;
+
+    frame[94 + 128 + 128 + 128] = 0x3E;
+    frame[95 + 128 + 128 + 128] = 0x3E;
 }
 
 void bird_reset(void)
