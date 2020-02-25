@@ -258,46 +258,34 @@ void stage1_int(void)
     // updates birds possition
     if (count >= 4)
     {
-        count = 0;
-        /* Moves bird 1 pixel along the x-axis*/
-        for (i = 0; i < 9; i++)
+      count = 0;
+      /* Moves bird 1 pixel along the x-axis*/
+      for (i = 0; i < 9; i++)
+      {
+        // x values
+        if (bird[i][0] >= 90)
         {
-          // x values
-          if (bird[i][0] >= 90)
-          {
-            bird[i][0] = 0;
-            //random_pipes();
-            //newpipes = 1;
-          }
-
-          else
-            (bird[i][0])++;
-
-          // y values
-          if (bird[i][1] >= 31)
-            bird[i][1] = 0;
-          else
-          {
-            if (jump <= 0)
-            (bird[i][1])++;
-            else
-            {
-              (bird[i][1])--;
-            }
-          }
+          bird[i][0] = 0;
         }
-        scores();
-        if (jump > 0)
-            jump--;
-        if (bird[3][0] == 0)
-          random_pipes();
+        else
+          (bird[i][0])++;
+
+        // y values
+        if (jump <= 0)
+          (bird[i][1])++;
+        else
+        {
+          (bird[i][1])--;
+        }
+      }
+      scores(); // checks if score advances
+      if (jump > 0)
+        jump--;
+      if (bird[3][0] == 0) // bird is at x = 0  generate new pipes
+        random_pipes();
 
     }
-
-
-
-
-        /*
+  /*
         if (jump == 0)
             IECSET(1) = 1;*/
 }
