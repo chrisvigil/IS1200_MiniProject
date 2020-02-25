@@ -10,6 +10,7 @@ uint8_t jump = 0;
 int randomseed;
 uint8_t pipespaces[3]; //Random generator, TO DO
 uint8_t newpipes = 0;
+int score_counter = 0;
 
 void *stdout = (void *) 0;
 
@@ -32,6 +33,16 @@ int pipe_collision(int pipe)
         return 1;
     }
     return 0;
+}
+
+void scores(void)
+{
+  int i = 36;
+  for (i; i < 77; i+= 20) //Checks values 36, 56, 76
+    {
+      if (bird[3][0] == i)
+        score_counter++;   //Adds a score point for every pipe passed (36, 56, 76 = 3 points)
+    }
 }
 
 int collision(void) //Collision detection
@@ -125,7 +136,6 @@ void new_frame_1(void)
     frame[368] = 0x54;
     frame[369] = 0x24;
 
-
     //T
     frame[371] = 0x04;
     frame[372] = 0x7C;
@@ -198,7 +208,8 @@ draw_pipe(uint8_t x_point, uint8_t y_point) //Punkten i början på sista raden 
 
 
 
-void stage1_int(void){
+void stage1_int(void)
+{
     // Interrupt handaling for stage 1
 
     count++;
@@ -261,6 +272,7 @@ void stage1_int(void){
             }
           }
         }
+        scores();
         if (jump > 0)
             jump--;
         if (bird[3][0] == 0)
