@@ -11,6 +11,7 @@ int randomseed;
 uint8_t pipespaces[3]; //Random generator, TO DO
 uint8_t newpipes = 0;
 int score_counter = 0;
+int highscore = 0;
 
 void *stdout = (void *) 0;
 
@@ -206,16 +207,16 @@ draw_pipe(uint8_t x_point, uint8_t y_point) //Punkten i början på sista raden 
   }
 
 }
-
-void drawscore(void)
+void drawscore(int pos, int score, int offset)
 {
+  // pos = 235
   int i;
   for (i = 0; i < 4; i++)
-    frame[i + 235] = (number[( (score_counter % 10)* 4) + i] << 2);
-  if (score_counter > 9)
+    frame[i + pos] = (number[( (score % 10)* 4) + i] << offset);
+  if (score > 9)
   {
     for (i = 0; i < 4; i++)
-      frame[i + 230] = (number[( ((score_counter / 10)%100)* 4) + i] << 2);
+      frame[i + pos - 5] = (number[( ((score / 10)%100)* 4) + i] << offset);
   }
 }
 
@@ -231,6 +232,8 @@ void stage1_int(void)
     if(collision())
     {
       bird_reset();
+      if (score_counter > highscore)
+        highscore = score_counter;
       score_counter = 0;
     }
 
@@ -246,7 +249,8 @@ void stage1_int(void)
       draw_pipe(30 + (20 * i), pipespaces[i]);
 
 
-    drawscore();
+    drawscore(235, score_counter, 2);
+    drawscore(491, highscore, 1);
 
     /* Sends frame to display */
     display_image(frame);
