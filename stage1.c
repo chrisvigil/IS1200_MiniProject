@@ -7,18 +7,19 @@ uint8_t frame[512];
 uint8_t bird[9][2] = {{0,16},{2,16},{3,16},{0,17},{1,17},{2,17},{0,18},{1,18},{2,18}};
 uint8_t count = 0;
 uint8_t jump = 0;
-
+int randomseed;
 uint8_t pipespaces[3]; //Random generator, TO DO
+uint8_t newpipes = 0;
 
 void *stdout = (void *) 0;
 
 void random_pipes(void)
 {
   int i = 0;
-  srand(TMR2);
+
   for (i; i < 3; i++)
   {
-    pipespaces[i] = (rand() % 9) + 3;
+    pipespaces[i] = ((rand() | randomseed)  % 9) + 3;
   }
 }
 
@@ -185,7 +186,8 @@ void stage1_int(void){
           if (bird[i][0] >= 90)
           {
             bird[i][0] = 0;
-            random_pipes();
+            //random_pipes();
+            //newpipes = 1;
           }
 
           else
@@ -206,6 +208,8 @@ void stage1_int(void){
         }
         if (jump > 0)
             jump--;
+        if (bird[3][0] == 0)
+          random_pipes();
 
     }
 
@@ -232,6 +236,7 @@ void stage1_work(void)
     }
     else if (btnstate & 1)
         stage = 0;
+    randomseed = TMR2;
   }
 
 }

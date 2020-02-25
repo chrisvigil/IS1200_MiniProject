@@ -48,6 +48,7 @@ int main( void )
       {
         case 0:
           stage0_work();
+          srand(TMR2);
           break;
         case 1:
           stage1_work();
