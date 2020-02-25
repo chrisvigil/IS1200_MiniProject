@@ -1,14 +1,26 @@
 #include <stdint.h>   /* Declarations of uint_32 and the like */
 #include <pic32mx.h>
 #include "header.h"
+#include <stdlib.h>
 
 uint8_t frame[512];
 uint8_t bird[9][2] = {{0,16},{2,16},{3,16},{0,17},{1,17},{2,17},{0,18},{1,18},{2,18}};
 uint8_t count = 0;
 uint8_t jump = 0;
 
-uint8_t pipespaces[3] = {7, 12, 5}; //Random generator, TO DO
+uint8_t pipespaces[3]; //Random generator, TO DO
 
+void *stdout = (void *) 0;
+
+void random_pipes(void)
+{
+  int i = 0;
+  srand(TMR2);
+  for (i; i < 3; i++)
+  {
+    pipespaces[i] = (rand() % 9) + 3;
+  }
+}
 
 int pipe_collision(int pipe)
 {
@@ -169,24 +181,28 @@ void stage1_int(void){
         /* Moves bird 1 pixel along the x-axis*/
         for (i = 0; i < 9; i++)
         {
-            // x values
-            if (bird[i][0] >= 90)
+          // x values
+          if (bird[i][0] >= 90)
+          {
             bird[i][0] = 0;
-            else
+            random_pipes();
+          }
+
+          else
             (bird[i][0])++;
 
-            // y values
-            if (bird[i][1] >= 31)
-                bird[i][1] = 0;
+          // y values
+          if (bird[i][1] >= 31)
+            bird[i][1] = 0;
+          else
+          {
+            if (jump <= 0)
+            (bird[i][1])++;
             else
             {
-                if (jump <= 0)
-                    (bird[i][1])++;
-                else
-                {
-                    (bird[i][1])--;
-                }
+              (bird[i][1])--;
             }
+          }
         }
         if (jump > 0)
             jump--;
@@ -203,6 +219,8 @@ void stage1_int(void){
 
 void stage1_work(void)
 {
+  random_pipes();
+
   int btnstate;
   while (stage == 1)
   {
