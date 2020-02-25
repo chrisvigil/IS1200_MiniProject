@@ -99,7 +99,7 @@ void draw_point(uint8_t x, uint8_t y, uint8_t *cframe)
         Each index is a column.
 
         To draw a point, index is caululated with the formula:
-        ( y / (column hight) ) + ( display width )
+        ( ( y / (column hight) ) * ( display width ) ) + x
 
         a pixel is then added by shifting pixel into the
         correct position with:
