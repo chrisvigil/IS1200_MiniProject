@@ -117,7 +117,7 @@ void new_frame_1(void)
     frame[119] = 0xA8;
 
     //number
-    frame[98+128] = 0x7C;
+    //frame[98+128] = 0x7C;
 
     //B
     frame[357] = 0x7C;
@@ -141,8 +141,9 @@ void new_frame_1(void)
     frame[372] = 0x7C;
     frame[373] = 0x04;
 
+    /*
     frame[94 + 128 + 128 + 128] = 0x3E;
-    frame[95 + 128 + 128 + 128] = 0x3E;
+    frame[95 + 128 + 128 + 128] = 0x3E; */
 }
 
 void bird_reset(void)
@@ -206,7 +207,17 @@ draw_pipe(uint8_t x_point, uint8_t y_point) //Punkten i början på sista raden 
 
 }
 
-
+void drawscore(void)
+{
+  int i;
+  for (i = 0; i < 4; i++)
+    frame[i + 235] = (number[( (score_counter % 10)* 4) + i] << 2);
+  if (score_counter > 9)
+  {
+    for (i = 0; i < 4; i++)
+      frame[i + 230] = (number[( ((score_counter / 10)%100)* 4) + i] << 2);
+  }
+}
 
 void stage1_int(void)
 {
@@ -220,6 +231,7 @@ void stage1_int(void)
     if(collision())
     {
       bird_reset();
+      score_counter = 0;
     }
 
     /* Draws bird in frame */
@@ -233,10 +245,8 @@ void stage1_int(void)
     for (i = 0; i < 3; i++)
       draw_pipe(30 + (20 * i), pipespaces[i]);
 
-    /*
-    draw_pipe(30, pipespaces[0]);
-    draw_pipe(50, pipespaces[1]);
-    draw_pipe(70, pipespaces[2]); */
+
+    drawscore();
 
     /* Sends frame to display */
     display_image(frame);
