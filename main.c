@@ -41,6 +41,8 @@ int main( void )
 {
     init();
     stage = 0;
+    speed = 4; // default = 4
+    pipespacing = 15; // default  = 15
 
     while (1)
     {

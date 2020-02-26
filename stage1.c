@@ -30,7 +30,7 @@ int pipe_collision(int pipe)
     int i = 0;
     for(i; i < 9; i+=2)  //Checks collision for the four corners of the bird
     {
-      if ( (bird[i][0] >= (30 + (20*pipe)) && bird[i][0] <= (35 + (20*pipe)) ) && (bird[i][1] <= pipespaces[pipe] || bird[i][1] >= (pipespaces[pipe] + 15)))
+      if ( (bird[i][0] >= (30 + (20*pipe)) && bird[i][0] <= (35 + (20*pipe)) ) && (bird[i][1] <= pipespaces[pipe] || bird[i][1] >= (pipespaces[pipe] + pipespacing)))
         return 1;
     }
     return 0;
@@ -192,7 +192,7 @@ draw_pipe(uint8_t x_point, uint8_t y_point) //Punkten i början på sista raden 
     draw_point(j, i, frame); //Anropas med x, y, och vilken frame den ska rita i
   }
 
-  i+=15;
+  i+=pipespacing;
 
   for (j = (x_point); j < (x_point+5); j++)
   {
@@ -256,7 +256,7 @@ void stage1_int(void)
     display_image(frame);
 
     // updates birds possition
-    if (count >= 4)
+    if (count >= speed)
     {
       count = 0;
       /* Moves bird 1 pixel along the x-axis*/
