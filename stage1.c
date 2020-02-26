@@ -220,6 +220,26 @@ void drawscore(int pos, int score, int offset)
   }
 }
 
+void draw (void)
+{
+  /* Draws bird in frame */
+  int i = 0;
+  for (i; i < 9; i++)
+  {
+      draw_point(bird[i][0],bird[i][1], frame);
+  }
+
+  // Draws pipes
+  for (i = 0; i < 3; i++)
+    draw_pipe(30 + (20 * i), pipespaces[i]);
+
+
+  drawscore(235, score_counter, 2);
+  drawscore(491, highscore, 1);
+
+
+}
+
 void stage1_int(void)
 {
     // Interrupt handaling for stage 1
@@ -237,28 +257,16 @@ void stage1_int(void)
       score_counter = 0;
     }
 
-    /* Draws bird in frame */
-    int i = 0;
-    for (i; i < 9; i++)
-    {
-        draw_point(bird[i][0],bird[i][1], frame);
-    }
-
-    // Draws pipes
-    for (i = 0; i < 3; i++)
-      draw_pipe(30 + (20 * i), pipespaces[i]);
-
-
-    drawscore(235, score_counter, 2);
-    drawscore(491, highscore, 1);
-
+    draw();
     /* Sends frame to display */
     display_image(frame);
+
 
     // updates birds possition
     if (count >= speed)
     {
       count = 0;
+      int i;
       /* Moves bird 1 pixel along the x-axis*/
       for (i = 0; i < 9; i++)
       {
@@ -293,6 +301,62 @@ void stage1_int(void)
 void stage1_work(void)
 {
   random_pipes();
+  IEC(0) &= ~(1 << 8);
+  new_frame_1();
+  draw();
+  //S
+  frame[172] = 0x31;
+  frame[173] = 0x20;
+  frame[174] = 0x24;
+  frame[175] = 0x24;
+  frame[176] = 0x04;
+  frame[177] = 0x8C;
+
+  frame[178] = 0xFF;
+  frame[179] = 0xFF;
+  //T
+  frame[180] = 0xFC;
+  frame[181] = 0xFC;
+  frame[182] = 0x00;
+  frame[183] = 0x00;
+  frame[184] = 0xFC;
+  frame[185] = 0xFC;
+
+  frame[186] = 0xFF;
+  frame[187] = 0xFF;
+  //A
+  frame[188] = 0x01;
+  frame[189] = 0x00;
+  frame[190] = 0xE4;
+  frame[191] = 0xE4;
+  frame[192] = 0x00;
+  frame[193] = 0x01;
+
+  frame[194] = 0xFF;
+  frame[195] = 0xFF;
+  //R
+  frame[196] = 0x00;
+  frame[197] = 0x00;
+  frame[198] = 0xE4;
+  frame[199] = 0xE4;
+  frame[200] = 0x00;
+  frame[201] = 0x19;
+
+  frame[202] = 0xFF;
+  frame[203] = 0xFF;
+  //T
+  frame[204] = 0xFC;
+  frame[205] = 0xFC;
+  frame[206] = 0x00;
+  frame[207] = 0x00;
+  frame[208] = 0xFC;
+  frame[209] = 0xFC;
+  display_image(frame);
+  quicksleep(1000000);
+  while (getbtns() == 0){}
+  TMR2 = 0;
+  IEC(0) |= (1 << 8);
+
 
   int btnstate;
   while (stage == 1)
