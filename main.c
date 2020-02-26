@@ -22,6 +22,9 @@ void user_isr( void )
             case 1:
                 stage1_int();
                 break;
+            case 2:
+                stage2_int();
+                break;
         }
 
     }
@@ -55,6 +58,12 @@ int main( void )
         case 1:
           stage1_work();
           break;
+        case 2:
+          stage2_work();
+          break;
       }
+      IEC(0) &= ~(1 << 8);
+      quicksleep(1000000);
+      IEC(0) |= (1 << 8);
     }
 }
