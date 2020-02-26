@@ -108,3 +108,15 @@ void draw_point(uint8_t x, uint8_t y, uint8_t *cframe)
         */
     cframe[((y/8)*128)+x] &= ~(0x1 << (y%8));
 }
+
+void drawletter(char c, uint8_t start, uint8_t *dframe, uint8_t shift)
+{
+	//97
+	uint8_t l = ((c - 97) * 4);
+	int i;
+	for (i = 0; i < 4; i++)
+	{
+		dframe[start+i] = ~(~(letter[l+i]) << shift);
+	}
+
+}
