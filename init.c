@@ -52,7 +52,7 @@ void oledhost_init(void)
 
 void btn_init(void)
 {
-	TRISDSET = 0x80; // Set btn 4 as input
+	TRISDSET = 0x7e0; // Sets btn 4 to 2 as input
 	TRISFSET = 2; // Sets btn1 as input
 }
 

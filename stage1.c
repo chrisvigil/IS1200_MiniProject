@@ -353,7 +353,7 @@ void stage1_work(void)
   frame[209] = 0xFC;
   display_image(frame);
   quicksleep(1000000);
-  while (getbtns() == 0){}
+  while ((getbtns() & 8) == 0){}
   TMR2 = 0;
   IEC(0) |= (1 << 8);
 
