@@ -3,6 +3,7 @@
 #include "header.h"
 
 uint8_t frame[512];
+uint8_t pos = 0;
 
 void new_frame_0(void)
 {
@@ -84,16 +85,42 @@ void new_frame_0(void)
 void stage0_int(void)
 {
     new_frame_0();
+    if (pos == 1)
+    {
+      int i;
+      for (i = 173; i < 211; i++)
+        frame[i] = ~(frame[i]);
+    }
+
+    int i;
+    for (i = 0; i < 12; i++)
+      frame[400+i] = letter[i];
     display_image(frame);
 }
 
 void stage0_work(void)
 {
+  int btnstate;
+  int btn3pushed = 0;
+
   while (stage == 0)
   {
-    if (getbtns() & 8)
+    btnstate = getbtns();
+    if (btnstate & 8)
     {
         stage = 1;
+    }
+    if ((btnstate & 4) && (btn3pushed <= 0) )
+    {
+      if (pos == 0)
+        pos = 1;
+      else
+        pos = 0;
+      btn3pushed = 100000;
+    }
+    else
+    {
+      btn3pushed--;
     }
   }
 }

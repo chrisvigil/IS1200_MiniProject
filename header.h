@@ -14,5 +14,6 @@ int stage;
 void draw_point(uint8_t x, uint8_t y, uint8_t *cframe);
 int getbtns( void );
 extern const uint8_t const number[40];
+const uint8_t const letter[12];
 uint8_t speed;
 uint8_t pipespacing;
