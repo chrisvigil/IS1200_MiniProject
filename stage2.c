@@ -59,6 +59,7 @@ void stage2_work(void)
 {
   int btnstate;
   int btn3pushed = 0;
+  pos_2 = 0;
 
   while (stage == 2)
   {
