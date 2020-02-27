@@ -73,7 +73,7 @@ void stage2_work(void)
             stage = 3;
             break;
           case 1:
-            stage = 0;
+            stage = 7;
             break;
           case 2:
             stage = 4;

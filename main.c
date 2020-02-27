@@ -78,7 +78,7 @@ int main( void )
           stage6_work();
           break;
         case 7: // spacing
-          stage4_work();
+          stage7_work();
           break;
       }
       IEC(0) &= ~(1 << 8);

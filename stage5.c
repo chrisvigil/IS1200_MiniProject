@@ -20,7 +20,7 @@ void new_frame_5(void)
 void stage5_int(void)
 {
   new_frame_5();
-  display_image();
+  display_image(frame);
 }
 
 
