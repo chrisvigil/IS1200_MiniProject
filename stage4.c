@@ -3,7 +3,7 @@
 #include "header.h"
 
 uint8_t frame[512];
-uint8_t pos = 0;
+uint8_t pos_4 = 0;
 
 void new_frame_4(void)
 {
@@ -22,7 +22,7 @@ drawword("about", 201, frame, 3, 5);
 void stage4_int(void)
 {
 new_frame_4();
-if (pos == 0)
+if (pos_4 == 0)
   {
     int i;
     for (i = 276; i < 303; i++)
@@ -48,7 +48,7 @@ void stage4_work(void)
     btnstate = getbtns();
     if (btnstate & 8) //Button to the furthest left
     {
-      switch (pos)
+      switch (pos_4)
       {
         case 0:
           stage = 1;
@@ -64,10 +64,10 @@ void stage4_work(void)
 
     if ((btnstate & 4) && (btn3pushed <= 0) )
     {
-      if (pos == 0)
-        pos++;
+      if (pos_4 == 0)
+        pos_4++;
       else
-        pos = 0;
+        pos_4 = 0;
       btn3pushed = 100000;
     }
     else
@@ -75,6 +75,4 @@ void stage4_work(void)
       btn3pushed--;
     }
   }
-}
-
 }
