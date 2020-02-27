@@ -14,8 +14,9 @@ void new_frame_4(void)
       frame[i] = 255;
   }
 
-drawword("highscores", 148, frame, 3, 10);
-drawword("about", 201, frame, 3, 5);
+drawword("highscores", 20, frame, 3, 10);
+drawword("about", 90, frame, 3, 5);
+drawword("back", 278, frame, 3, 4);
 //
 }
 
@@ -25,15 +26,22 @@ new_frame_4();
 if (pos_4 == 0)
   {
     int i;
-    for (i = 276; i < 303; i++)
+    for (i = 148; i < 189; i++)
       frame[i] = 0xFD;
   }
-  else
+if else (pos_4 == 1)
   {
     int i;
-    for (i = 329; i < 361; i++)
+    for (i = 218; i < 239; i++)
       frame[i] = 0xFD;
   }
+else
+{
+  int i;
+  for (i = 406; i < 423; i++)
+    frame[i] = 0xFD;
+}
+
   display_image(frame);
 }
 
@@ -51,13 +59,13 @@ void stage4_work(void)
       switch (pos_4)
       {
         case 0:
-          stage = 1;
-          break;
-        case 1:
           stage = 5;
           break;
-        case 2:
+        case 1:
           stage = 6;
+          break;
+        case 2:
+          stage = 2;
           break;
       }
     }
