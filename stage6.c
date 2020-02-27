@@ -2,6 +2,8 @@
 #include <pic32mx.h>
 #include "header.h"
 
+//ABOUT stage
+
 uint8_t frame[512];
 uint8_t pos_6 = 0;
 

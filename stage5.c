@@ -2,6 +2,8 @@
 #include <pic32mx.h>
 #include "header.h"
 
+//HIGHSCORES stage
+
 uint8_t frame[512];
 uint8_t pos_5 = 0;
 
