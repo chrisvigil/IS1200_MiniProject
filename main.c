@@ -25,6 +25,12 @@ void user_isr( void )
             case 2:
                 stage2_int();
                 break;
+            case 3:
+                stage3_int();
+                break;
+            case 4:
+                stage4_int();
+                break;
         }
 
     }
@@ -60,6 +66,12 @@ int main( void )
           break;
         case 2:
           stage2_work();
+          break;
+        case 3:
+          stage3_work();
+          break;
+        case 4:
+          stage4_work();
           break;
       }
       IEC(0) &= ~(1 << 8);

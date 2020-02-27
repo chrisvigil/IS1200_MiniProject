@@ -69,13 +69,13 @@ void stage2_work(void)
         switch (pos_2)
         {
           case 0:
-            stage = 0;
+            stage = 3;
             break;
           case 1:
             stage = 0;
             break;
           case 2:
-            stage = 0;
+            stage = 4;
             break;
           case 3:
             stage = 0;

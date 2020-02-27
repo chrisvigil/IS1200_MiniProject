@@ -16,14 +16,15 @@ void new_frame_3(void)
       frame[i] = 255;
   }
 
-  drawletter('s',148,frame,3);
-  drawletter('s',148,frame,3);
+  drawword("slow", 141, frame, 3, 4);
+  drawword("fast", 176, frame, 3, 4);
+  drawword("insane", 210, frame, 3, 6);
 }
 
 void stage3_int(void)
 {
   new_frame_3();
-  display_image();
+  display_image(frame);
 }
 
 
