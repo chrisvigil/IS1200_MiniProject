@@ -16,6 +16,7 @@ void new_frame_0(void)
 
     drawword("start", 148, frame_0, 3, 5);
     drawword("settings", 201, frame_0, 3, 8);
+    //
 }
 
 void stage0_int(void)
