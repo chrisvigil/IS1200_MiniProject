@@ -22,26 +22,25 @@ drawword("back", 278, frame, 3, 4);
 
 void stage4_int(void)
 {
-new_frame_4();
-if (pos_4 == 0)
+  new_frame_4();
+  int i = 0;
+  switch(pos_4)
   {
-    int i;
-    for (i = 148; i < 189; i++)
+    case 0:
+    for (i = 148; i < 195; i++)
       frame[i] = 0xFD;
-  }
-if else (pos_4 == 1)
-  {
-    int i;
-    for (i = 218; i < 239; i++)
-      frame[i] = 0xFD;
-  }
-else
-{
-  int i;
-  for (i = 406; i < 423; i++)
-    frame[i] = 0xFD;
-}
+    break;
 
+    case 1:
+    for (i = 218; i < 242; i++)
+      frame[i] = 0xFD;
+    break;
+
+    case 2:
+    for (i = 406; i < 425; i++)
+      frame[i] = 0xFD;
+    break;
+  }
   display_image(frame);
 }
 
