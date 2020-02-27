@@ -41,7 +41,7 @@ void stage2_int(void)
     break;
 
     case 2:
-    for (i = 406; i < 425; i++)
+    for (i = 406; i < 423; i++)
       frame[i] = 0xFD;
     break;
 

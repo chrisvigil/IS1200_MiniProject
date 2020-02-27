@@ -11,39 +11,37 @@
 
 void user_isr( void )
 {
-    if ((IFS(0) & 0x100) == 0x100)
-    {
-        IFS(0) &= ~0x100; // clears timer 2 interrupt flag
-        switch (stage){
-            case 0:
-                stage0_int();
-                break;
-
-            case 1:
-                stage1_int();
-                break;
-            case 2:
-                stage2_int();
-                break;
-            case 3:
-                stage3_int();
-                break;
-            case 4:
-                stage4_int();
-                break;
-        }
-
+  if ((IFS(0) & 0x100) == 0x100)
+  {
+    IFS(0) &= ~0x100; // clears timer 2 interrupt flag
+    switch (stage){
+      case 0:
+        stage0_int();
+        break;
+      case 1:
+        stage1_int();
+        break;
+      case 2:
+        stage2_int();
+        break;
+      case 3:
+        stage3_int();
+        break;
+      case 4:
+        stage4_int();
+        break;
+      case 5:
+        stage5_int();
+        break;
+      case 6:
+        stage6_int();
+        break;
+      case 7:
+        stage7_int();
+        break;
     }
 
-        /*
-    if (IFS(0) & 1)
-    {
-        IFSCLR(1) = 1;
-        if (jump == 0)
-            jump = 5;
-        IECCLR(1) = 1;
-    }
-    */
+  }
 }
 
 int main( void )
@@ -57,20 +55,29 @@ int main( void )
     {
       switch (stage)
       {
-        case 0:
+        case 0: // main menu
           stage0_work();
           srand(TMR2);
           break;
-        case 1:
+        case 1: // game
           stage1_work();
           break;
-        case 2:
+        case 2: // settings
           stage2_work();
           break;
-        case 3:
+        case 3: // speed
           stage3_work();
           break;
-        case 4:
+        case 4: // info
+          stage4_work();
+          break;
+        case 5: // highscores
+          stage5_work();
+          break;
+        case 6: // about
+          stage6_work();
+          break;
+        case 7: // spacing
           stage4_work();
           break;
       }

@@ -240,65 +240,6 @@ void draw (void)
 
 }
 
-void stage1_int(void)
-{
-    // Interrupt handaling for stage 1
-
-    count++;
-    /* Clears frame */
-    new_frame_1();
-
-    // Collision detection
-    if(collision())
-    {
-      bird_reset();
-      if (score_counter > highscore)
-        highscore = score_counter;
-      score_counter = 0;
-      start();
-    }
-
-    draw();
-    /* Sends frame to display */
-    display_image(frame);
-
-
-    // updates birds possition
-    if (count >= speed)
-    {
-      count = 0;
-      int i;
-      /* Moves bird 1 pixel along the x-axis*/
-      for (i = 0; i < 9; i++)
-      {
-        // x values
-        if (bird[i][0] >= 90)
-        {
-          bird[i][0] = 0;
-        }
-        else
-          (bird[i][0])++;
-
-        // y values
-        if (jump <= 0)
-          (bird[i][1])++;
-        else
-        {
-          (bird[i][1])--;
-        }
-      }
-      scores(); // checks if score advances
-      if (jump > 0)
-        jump--;
-      if (bird[3][0] == 0) // bird is at x = 0  generate new pipes
-        random_pipes();
-
-    }
-  /*
-        if (jump == 0)
-            IECSET(1) = 1;*/
-}
-
 void start(void)
 {
   random_pipes();
@@ -358,6 +299,67 @@ void start(void)
   TMR2 = 0;
   IEC(0) |= (1 << 8);
 }
+
+void stage1_int(void)
+{
+    // Interrupt handaling for stage 1
+
+    count++;
+    /* Clears frame */
+    new_frame_1();
+
+    // Collision detection
+    if(collision())
+    {
+      bird_reset();
+      if (score_counter > highscore)
+        highscore = score_counter;
+      score_counter = 0;
+      start();
+    }
+
+    draw();
+    /* Sends frame to display */
+    display_image(frame);
+
+
+    // updates birds possition
+    if (count >= speed)
+    {
+      count = 0;
+      int i;
+      /* Moves bird 1 pixel along the x-axis*/
+      for (i = 0; i < 9; i++)
+      {
+        // x values
+        if (bird[i][0] >= 90)
+        {
+          bird[i][0] = 0;
+        }
+        else
+          (bird[i][0])++;
+
+        // y values
+        if (jump <= 0)
+          (bird[i][1])++;
+        else
+        {
+          (bird[i][1])--;
+        }
+      }
+      scores(); // checks if score advances
+      if (jump > 0)
+        jump--;
+      if (bird[3][0] == 0) // bird is at x = 0  generate new pipes
+        random_pipes();
+
+    }
+  /*
+        if (jump == 0)
+            IECSET(1) = 1;*/
+}
+
+
 
 void stage1_work(void)
 {
