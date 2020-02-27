@@ -15,7 +15,7 @@ void new_frame_4(void)
   }
 
 drawword("highscores", 20, frame, 3, 10);
-drawword("about", 90, frame, 3, 5);
+drawword("credits", 90, frame, 3, 6);
 drawword("back", 278, frame, 3, 4);
 //
 }
@@ -32,7 +32,7 @@ void stage4_int(void)
     break;
 
     case 1:
-    for (i = 218; i < 241; i++)
+    for (i = 218; i < 244; i++)
       frame[i] = 0xFD;
     break;
 
