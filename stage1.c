@@ -255,6 +255,7 @@ void stage1_int(void)
       if (score_counter > highscore)
         highscore = score_counter;
       score_counter = 0;
+      start();
     }
 
     draw();
@@ -298,7 +299,7 @@ void stage1_int(void)
             IECSET(1) = 1;*/
 }
 
-void stage1_work(void)
+void start(void)
 {
   random_pipes();
   IEC(0) &= ~(1 << 8);
@@ -356,9 +357,14 @@ void stage1_work(void)
   while ((getbtns() & 8) == 0){}
   TMR2 = 0;
   IEC(0) |= (1 << 8);
+}
 
+void stage1_work(void)
+{
 
   int btnstate;
+  start();
+
   while (stage == 1)
   {
     btnstate = getbtns();
@@ -371,5 +377,7 @@ void stage1_work(void)
         stage = 0;
     randomseed = TMR2;
   }
+  bird_reset();
+  score_counter = 0;
 
 }
