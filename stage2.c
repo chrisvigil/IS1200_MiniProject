@@ -14,7 +14,7 @@ void new_frame_2(void)
       frame[i] = 255;
   }
 
-  drawword("space", 20, frame, 3, 5);
+  drawword("speed", 20, frame, 3, 5);
 
   drawword("spacing", 75, frame, 3, 7);
 
