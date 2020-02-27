@@ -27,17 +27,17 @@ void stage4_int(void)
   switch(pos_4)
   {
     case 0:
-    for (i = 148; i < 195; i++)
+    for (i = 148; i < 194; i++)
       frame[i] = 0xFD;
     break;
 
     case 1:
-    for (i = 218; i < 242; i++)
+    for (i = 218; i < 241; i++)
       frame[i] = 0xFD;
     break;
 
     case 2:
-    for (i = 406; i < 425; i++)
+    for (i = 406; i < 424; i++)
       frame[i] = 0xFD;
     break;
   }
@@ -71,7 +71,7 @@ void stage4_work(void)
 
     if ((btnstate & 4) && (btn3pushed <= 0) )
     {
-      if (pos_4 == 0)
+      if (pos_4 < 2)
         pos_4++;
       else
         pos_4 = 0;
