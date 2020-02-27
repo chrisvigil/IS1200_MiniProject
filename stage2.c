@@ -14,29 +14,13 @@ void new_frame_2(void)
       frame[i] = 255;
   }
 
-  drawletter('s',20,frame,3);
-  drawletter('p',25,frame,3);
-  drawletter('e',29,frame,3);
-  drawletter('e',33,frame,3);
-  drawletter('d',38,frame,3);
+  drawword("space", 20, frame, 3, 5);
 
-  drawletter('s',75,frame,3);
-  drawletter('p',80,frame,3);
-  drawletter('a',85,frame,3);
-  drawletter('c',89,frame,3);
-  drawletter('i',93,frame,3);
-  drawletter('n',98,frame,3);
-  drawletter('g',103,frame,3);
+  drawword("spacing", 75, frame, 3, 7);
 
-  drawletter('i',275+3,frame,3);
-  drawletter('n',280+3,frame,3);
-  drawletter('f',284+3,frame,3);
-  drawletter('o',289+3,frame,3);
+  drawword("info", 278, frame, 3, 4);
 
-  drawletter('b',347-9,frame,3);
-  drawletter('a',352-9,frame,3);
-  drawletter('c',356-9,frame,3);
-  drawletter('k',361-9,frame,3);
+  drawword("back", 338, frame, 3, 4);
 }
 
 void stage2_int(void)

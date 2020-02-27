@@ -14,20 +14,8 @@ void new_frame_0(void)
         frame_0[i] = 255;
     }
 
-    drawletter('s',148,frame_0,3);
-    drawletter('t',152,frame_0,3);
-    drawletter('a',157,frame_0,3);
-    drawletter('r',162,frame_0,3);
-    drawletter('t',166,frame_0,3);
-
-    drawletter('s',201,frame_0,3);
-    drawletter('e',205,frame_0,3);
-    drawletter('t',209,frame_0,3);
-    drawletter('t',213,frame_0,3);
-    drawletter('i',217,frame_0,3);
-    drawletter('n',222,frame_0,3);
-    drawletter('g',227,frame_0,3);
-    drawletter('s',232,frame_0,3);
+    drawword("start", 148, frame_0, 3, 5);
+    drawword("settings", 201, frame_0, 3, 8);
 }
 
 void stage0_int(void)
