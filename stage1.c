@@ -207,23 +207,7 @@ draw_pipe(uint8_t x_point, uint8_t y_point) //Punkten i början på sista raden 
   }
 
 }
-void drawscore(int pos, int score, int offset)
-{
-  // pos = 235
-  int i;
-  for (i = 0; i < 4; i++)
-    frame[i + pos] = (number[( (score % 10)* 4) + i] << offset);
-  if (score > 9)
-  {
-    for (i = 0; i < 4; i++)
-      frame[i + pos - 5] = (number[( ((score % 100)/10)* 4) + i] << offset);
-  }
-  if (score > 99)
-  {
-    for (i = 0; i < 4; i++)
-      frame[i + pos - 10] = (number[( ((score / 100) % 1000) *4) + i] << offset);
-  }
-}
+
 void draw (void)
 {
   /* Draws bird in frame */
@@ -238,8 +222,8 @@ void draw (void)
     draw_pipe(30 + (20 * i), pipespaces[i]);
 
 
-  drawscore(235, score_counter, 2);
-  drawscore(491, highscore, 1);
+  drawnumber(235, score_counter, 2, frame);
+  drawnumber(491, highscore, 1, frame);
 
 
 }
