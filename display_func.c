@@ -150,3 +150,35 @@ void drawword(char *word, int start, uint8_t *frame, uint8_t shift, int len)
 	}
 
 }
+
+
+//Gör att den här cyklar igenom bokstäverna
+//Den ska dock bara gå till nästa om knappen trycks
+//letters_counter går upp om knappen trycks in
+void cycle_letters(void)
+{
+	int btnstate;
+	int letters_counter = 0;
+	int i = 97;
+	int btn3pushed = 0;
+
+	while (stage == 5)
+	{
+		btnstate = getbtns();
+		if ((btnstate & 4) && (btn3pushed <= 0)) //
+			letters_counter++;
+		if (letters_counter = 1)
+		{
+			drawletter(i, start, frame, shift);
+			i++;
+			if (i >= 123)
+		  	i = 97;
+			btn3pushed = 100000;
+		}
+		else
+		{
+	  	btn3pushed--;
+		}
+	}
+}
+//Sen måste det finnas en "OK" på knapp 4 också.
