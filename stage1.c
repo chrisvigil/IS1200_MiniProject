@@ -295,7 +295,15 @@ void start(void)
   frame[209] = 0xFC;
   display_image(frame);
   quicksleep(1000000);
-  while ((getbtns() & 8) == 0){}
+  while ((getbtns() & 8) == 0)
+  {
+    if ((getbtns() & 1))
+    {
+      stage = 0;
+      break;
+    }
+
+  }
   TMR2 = 0;
   IEC(0) |= (1 << 8);
 }
@@ -354,9 +362,6 @@ void stage1_int(void)
         random_pipes();
 
     }
-  /*
-        if (jump == 0)
-            IECSET(1) = 1;*/
 }
 
 
