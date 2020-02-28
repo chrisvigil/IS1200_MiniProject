@@ -10,8 +10,8 @@ uint8_t jump = 0;
 int randomseed;
 uint8_t pipespaces[3]; //Random generator, TO DO
 uint8_t newpipes = 0;
-int score_counter = 99;
-int highscore = 99;
+int score_counter = 0;
+int highscore = 0;
 
 void *stdout = (void *) 0;
 
@@ -296,6 +296,47 @@ void start(void)
   IEC(0) |= (1 << 8);
 }
 
+void check_highscore()
+{
+  int listnum;
+  if (highscore > ((highscore_list[2][3] << 8) |  highscore_list[2][4]))
+  {
+    listnum = 2;
+    if (highscore > ((highscore_list[1][3] << 8) |  highscore_list[1][4]))
+    {
+      listnum = 1;
+      if (highscore > ((highscore_list[0][3] << 8) |  highscore_list[0][4]))
+      {
+        listnum = 0;
+      }
+    }
+
+    switch (listnum)
+    {
+      case 2:
+        highscore_list[2][3] = (highscore & 0xFF00) >> 8;
+        highscore_list[2][4] = (highscore & 0xFF);
+        break;
+      case 1:
+        highscore_list[2][3] = highscore_list[1][3];
+        highscore_list[2][4] = highscore_list[1][4];
+        highscore_list[1][3] = (highscore & 0xFF00) >> 8;
+        highscore_list[1][4] = (highscore & 0xFF);
+        break;
+      case 0:
+        highscore_list[2][3] = highscore_list[1][3];
+        highscore_list[2][4] = highscore_list[1][4];
+        highscore_list[1][3] = highscore_list[0][3];
+        highscore_list[1][4] = highscore_list[0][4];
+        highscore_list[0][3] = (highscore & 0xFF00) >> 8;
+        highscore_list[0][4] = (highscore & 0xFF);
+        break;
+    }
+  }
+
+
+}
+
 void stage1_int(void)
 {
     // Interrupt handaling for stage 1
@@ -310,6 +351,7 @@ void stage1_int(void)
       bird_reset();
       if (score_counter > highscore)
         highscore = score_counter;
+      check_highscore();
       score_counter = 0;
       start();
     }

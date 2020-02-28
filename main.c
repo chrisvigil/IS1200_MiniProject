@@ -58,7 +58,7 @@ int main( void )
       highscore_list[i][1] = 'c';
       highscore_list[i][2] = 'v';
       highscore_list[i][3] = 0;
-      highscore_list[i][4] = 123;
+      highscore_list[i][4] = 0;
     }
 
 

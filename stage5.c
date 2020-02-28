@@ -44,36 +44,10 @@ void stage5_work(void)
 
   while (stage == 5)
   {
-    /*
     btnstate = getbtns();
     if (btnstate & 8) //Button to the furthest left
     {
-      switch (pos_4)
-      {
-        case 0:
-          stage = 5;
-          break;
-        case 1:
-          stage = 6;
-          break;
-        case 2:
-          stage = 2;
-          break;
-      }
+      stage = 4;
     }
-
-    if ((btnstate & 4) && (btn3pushed <= 0) )
-    {
-      if (pos_4 < 2)
-        pos_4++;
-      else
-        pos_4 = 0;
-      btn3pushed = 100000;
-    }
-    else
-    {
-      btn3pushed--;
-    }
-  }*/
   }
 }
