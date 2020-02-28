@@ -17,3 +17,6 @@ extern const uint8_t const number[40];
 const uint8_t const letter[104];
 uint8_t speed;
 uint8_t pipespacing;
+
+uint16_t temp_highscore;
+uint8_t highscore_list[3][5];

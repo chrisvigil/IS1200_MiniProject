@@ -51,6 +51,19 @@ int main( void )
     speed = 4; // default = 4
     pipespacing = 15; // default  = 15
 
+    int i,j;
+    for (i=0; i < 3; i++)
+    {
+      highscore_list[i][0] = 'c';
+      highscore_list[i][1] = 'c';
+      highscore_list[i][2] = 'v';
+      highscore_list[i][3] = 0;
+      highscore_list[i][4] = 0;
+    }
+
+    temp_highscore = 0;
+
+
     while (1)
     {
       switch (stage)
@@ -74,7 +87,7 @@ int main( void )
         case 5: // highscores
           stage5_work();
           break;
-        case 6: // about
+        case 6: // credits
           stage6_work();
           break;
         case 7: // spacing
