@@ -332,6 +332,13 @@ void check_highscore()
         highscore_list[0][4] = (highscore & 0xFF);
         break;
     }
+
+    int i,j;
+    for (i=0; i < 3; i++)
+    {
+      for (j = 0; j < 5; j++)
+        eeprom_write(0x00, ((i*5)+j), (highscore_list[i][j] & 0xFF));
+    }
   }
 
 

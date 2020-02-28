@@ -54,11 +54,17 @@ int main( void )
     int i,j;
     for (i=0; i < 3; i++)
     {
+      /*
       highscore_list[i][0] = 'c';
       highscore_list[i][1] = 'c';
       highscore_list[i][2] = 'v';
       highscore_list[i][3] = 0;
       highscore_list[i][4] = 0;
+      */
+
+      for (j = 0; j < 5; j++)
+        highscore_list[i][j] = eeprom_read(0x00,((i*5)+j));
+
     }
 
 

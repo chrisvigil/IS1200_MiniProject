@@ -49,5 +49,21 @@ void stage5_work(void)
     {
       stage = 4;
     }
+    if (btnstate & 1)
+    {
+      int i,j;
+      for (i = 0; i < 16; i++)
+      {
+          eeprom_write(0x00, (uint8_t)i, (uint8_t)0);
+      }
+      for (i = 0; i < 3; i++)
+      {
+        for (j = 0; j < 5; j++)
+        {
+          highscore_list[i][j] = eeprom_read(0x00,(uint8_t)((i*5)+j));
+        }
+      }
+
+    }
   }
 }
