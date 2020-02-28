@@ -109,6 +109,23 @@ void draw_point(uint8_t x, uint8_t y, uint8_t *cframe)
     cframe[((y/8)*128)+x] &= ~(0x1 << (y%8));
 }
 
+void drawnumber(int pos, int numbers, int offset, uint8_t *frame)
+{
+  int i;
+  for (i = 0; i < 4; i++)
+    frame[i + pos] = (number[( (numbers % 10)* 4) + i] << offset);
+  if (numbers > 9)
+  {
+    for (i = 0; i < 4; i++)
+      frame[i + pos - 5] = (number[( ((numbers % 100)/10)* 4) + i] << offset);
+  }
+  if (numbers > 99)
+  {
+    for (i = 0; i < 4; i++)
+      frame[i + pos - 10] = (number[( ((numbers / 100) % 1000) *4) + i] << offset);
+  }
+}
+
 int drawletter(char c, int start, uint8_t *frame, uint8_t shift)
 {
 	//97
