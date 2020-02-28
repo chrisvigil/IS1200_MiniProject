@@ -21,17 +21,15 @@ void stage5_int(void)
 {
   new_frame_5();
 
-  int i,j;
-  char name[3];
+  int i;
+  int num;
 
   for (i=0; i < 3; i++)
   {
-    /*
-    for (j=0; j < 3; j++)
-    {
-      name[i] = highscore_list[i];
-    }*/
     drawword(highscore_list[i], ((128*i)+20), frame, 3, 3);
+
+    num = ((highscore_list[i][3] << 8) |  highscore_list[i][4]);
+    drawnumber(((128*i)+60), num, 3, frame);
   }
 
   display_image(frame);
