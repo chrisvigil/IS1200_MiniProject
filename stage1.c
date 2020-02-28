@@ -10,8 +10,8 @@ uint8_t jump = 0;
 int randomseed;
 uint8_t pipespaces[3]; //Random generator, TO DO
 uint8_t newpipes = 0;
-int score_counter = 0;
-int highscore = 0;
+int score_counter = 99;
+int highscore = 99;
 
 void *stdout = (void *) 0;
 
@@ -216,10 +216,14 @@ void drawscore(int pos, int score, int offset)
   if (score > 9)
   {
     for (i = 0; i < 4; i++)
-      frame[i + pos - 5] = (number[( ((score / 10)%100)* 4) + i] << offset);
+      frame[i + pos - 5] = (number[( ((score % 100)/10)* 4) + i] << offset);
+  }
+  if (score > 99)
+  {
+    for (i = 0; i < 4; i++)
+      frame[i + pos - 10] = (number[( ((score / 100) % 1000) *4) + i] << offset);
   }
 }
-
 void draw (void)
 {
   /* Draws bird in frame */
