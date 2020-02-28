@@ -4,6 +4,7 @@
 
 uint8_t frame_0[512];
 uint8_t pos = 0;
+uint8_t temp;
 
 void new_frame_0(void)
 {
@@ -16,7 +17,9 @@ void new_frame_0(void)
 
     drawword("start", 148, frame_0, 3, 5);
     drawword("settings", 201, frame_0, 3, 8);
-    //
+
+    for (i = 0; i < 4; i++)
+      frame_0[i + 400] = ~(number[( (temp % 10)* 4) + i] << 0);
 }
 
 void stage0_int(void)
@@ -42,6 +45,10 @@ void stage0_work(void)
   int btnstate;
   int btn3pushed = 0;
   pos = 0;
+
+  //uint8_t stuff = 3;
+  //eeprom_write(0x00, 0x01, stuff);
+  temp = eeprom_read(0x00,0x01);
 
   while (stage == 0)
   {
