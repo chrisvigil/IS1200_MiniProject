@@ -111,18 +111,34 @@ void draw_point(uint8_t x, uint8_t y, uint8_t *cframe)
 
 void drawnumber(int pos, int numbers, int offset, uint8_t *frame)
 {
+	int inv = 1;
+
   int i;
   for (i = 0; i < 4; i++)
-    frame[i + pos] = (number[( (numbers % 10)* 4) + i] << offset);
+	{
+		frame[i + pos] = (number[( (numbers % 10)* 4) + i] << offset);
+		if (inv)
+			frame[i + pos] = 	~(frame[i + pos]);
+	}
+
   if (numbers > 9)
   {
     for (i = 0; i < 4; i++)
-      frame[i + pos - 5] = (number[( ((numbers % 100)/10)* 4) + i] << offset);
+		{
+			frame[i + pos - 5] = (number[( ((numbers % 100)/10)* 4) + i] << offset);
+			if (inv)
+				frame[i + pos - 5] = 	~(frame[i + pos - 5]);
+		}
+
   }
   if (numbers > 99)
   {
     for (i = 0; i < 4; i++)
-      frame[i + pos - 10] = (number[( ((numbers / 100) % 1000) *4) + i] << offset);
+		{
+			frame[i + pos - 10] = (number[( ((numbers / 100) % 1000) *4) + i] << offset);
+			if (inv)
+				frame[i + pos - 10] = ~(frame[i + pos - 10]);
+		}
   }
 }
 
@@ -150,35 +166,3 @@ void drawword(char *word, int start, uint8_t *frame, uint8_t shift, int len)
 	}
 
 }
-
-
-//Gör att den här cyklar igenom bokstäverna
-//Den ska dock bara gå till nästa om knappen trycks
-//letters_counter går upp om knappen trycks in
-void cycle_letters(void)
-{
-	int btnstate;
-	int letters_counter = 0;
-	int i = 97;
-	int btn3pushed = 0;
-
-	while (stage == 5)
-	{
-		btnstate = getbtns();
-		if ((btnstate & 4) && (btn3pushed <= 0)) //
-			letters_counter++;
-		if (letters_counter = 1)
-		{
-			drawletter(i, start, frame, shift);
-			i++;
-			if (i >= 123)
-		  	i = 97;
-			btn3pushed = 100000;
-		}
-		else
-		{
-	  	btn3pushed--;
-		}
-	}
-}
-//Sen måste det finnas en "OK" på knapp 4 också.
