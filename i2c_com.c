@@ -78,13 +78,12 @@ void eeprom_write(uint8_t addrhigh, uint8_t addrlow, uint8_t data)
   //Sends data
 	i2c_send(data);
   i2c_stop();
-  quicksleep(1000000);
 }
 
 uint8_t eeprom_read(uint8_t addrhigh, uint8_t addrlow)
 {
   uint8_t data;
-  
+
   do {
 		i2c_start();
 	} while(!i2c_send(EEPROM_ADDR << 1));
