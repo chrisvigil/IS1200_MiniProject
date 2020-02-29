@@ -49,13 +49,27 @@ void stage5_work(void)
     {
       stage = 4;
     }
-    if (btnstate & 1)
+    if (btnstate == 7)
     {
       int i,j;
+      /*
       for (i = 0; i < 16; i++)
       {
           eeprom_write(0x00, (uint8_t)i, (uint8_t)0);
+      }*/
+
+      for (i = 0; i < 15; i+=5)
+      {
+        for (j = 0; j < 3; j++)
+        {
+          eeprom_write(0x00, (uint8_t)(i+j), 'a');
+        }
+        for (j; j < 5; j++)
+        {
+          eeprom_write(0x00, (uint8_t)(i+j), (uint8_t)0);
+        }
       }
+
       for (i = 0; i < 3; i++)
       {
         for (j = 0; j < 5; j++)
