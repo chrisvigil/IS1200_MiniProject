@@ -7,7 +7,9 @@
 uint8_t frame[512];
 uint8_t pos_6 = 0;
 
-int letters_counter = 0;
+int letters_counter;
+int select;
+char name[3];
 
 void new_frame_6(void)
 {
@@ -32,6 +34,15 @@ void new_frame_6(void)
 void stage6_int(void)
 {
   new_frame_6();
+  //drawword(name, 148, frame, 3, 3);
+  drawletter(name[0], 148, frame, 3);
+  drawletter(name[1], (148+8), frame, 3);
+  drawletter(name[2], (148+8+8), frame, 3);
+  int i;
+  for (i=0; i < 4; i++)
+  {
+    frame[(select*8)+276+i] = 0xFD;
+  }
   display_image(frame);
 }
 
@@ -39,15 +50,43 @@ void stage6_int(void)
 void stage6_work(void)
 {
   	int btnstate;
-  	int i = 97;
   	int btn3pushed = 0;
-    int j = 20;
+    letters_counter = 0;
+    select = 0;
+    name[0] = 'a';
+    name[1] = 'a';
+    name[2] = 'a';
 
   	while (stage == 6)
   	{
   		btnstate = getbtns();
-  		if (btnstate & 8)
-  			letters_counter++;
+      if (btnstate & 8)
+      {
+        select++;
+      }
+  		if (btnstate & 4)
+      {
+        if (letters_counter >= 25)
+        {
+          letters_counter = 0;
+          name[select] = 'a';
+        }
+        else
+        {
+          letters_counter++;
+          name[select]++;
+        }
+
+      }
+
+      if (select > 2 )
+      {
+        stage = 0;
+      }
+
+      quicksleep(500000);
+
+      /*
   		if (letters_counter >= 1)
   		{
   			drawletter(i, j, frame, 3);
@@ -56,6 +95,9 @@ void stage6_work(void)
   			if (i >= 123)
   		  	i = 97;
   		}
+      if (btnstate & 1)
+        stage = 0;
+      */
   	}
   }
 
