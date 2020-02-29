@@ -296,53 +296,10 @@ void start(void)
   IEC(0) |= (1 << 8);
 }
 
-void check_highscore()
-{
-  int listnum;
-  if (highscore > ((highscore_list[2][3] << 8) |  highscore_list[2][4]))
-  {
-    listnum = 2;
-    if (highscore > ((highscore_list[1][3] << 8) |  highscore_list[1][4]))
-    {
-      listnum = 1;
-      if (highscore > ((highscore_list[0][3] << 8) |  highscore_list[0][4]))
-      {
-        listnum = 0;
-      }
-    }
-
-    switch (listnum)
-    {
-      case 2:
-        highscore_list[2][3] = (highscore & 0xFF00) >> 8;
-        highscore_list[2][4] = (highscore & 0xFF);
-        break;
-      case 1:
-        highscore_list[2][3] = highscore_list[1][3];
-        highscore_list[2][4] = highscore_list[1][4];
-        highscore_list[1][3] = (highscore & 0xFF00) >> 8;
-        highscore_list[1][4] = (highscore & 0xFF);
-        break;
-      case 0:
-        highscore_list[2][3] = highscore_list[1][3];
-        highscore_list[2][4] = highscore_list[1][4];
-        highscore_list[1][3] = highscore_list[0][3];
-        highscore_list[1][4] = highscore_list[0][4];
-        highscore_list[0][3] = (highscore & 0xFF00) >> 8;
-        highscore_list[0][4] = (highscore & 0xFF);
-        break;
-    }
-
-    int i,j;
-    for (i=0; i < 3; i++)
-    {
-      for (j = 0; j < 5; j++)
-        eeprom_write(0x00, ((i*5)+j), (highscore_list[i][j] & 0xFF));
-    }
-  }
 
 
-}
+
+
 
 void stage1_int(void)
 {
@@ -358,7 +315,12 @@ void stage1_int(void)
       bird_reset();
       if (score_counter > highscore)
         highscore = score_counter;
-      check_highscore();
+      if (score_counter > temp_highscore)
+      {
+        temp_highscore = score_counter;
+        stage = 8;
+      }
+
       score_counter = 0;
       start();
     }

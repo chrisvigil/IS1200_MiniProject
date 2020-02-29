@@ -39,6 +39,9 @@ void user_isr( void )
       case 7:
         stage7_int();
         break;
+      case 8:
+        stage8_int();
+        break;
     }
 
   }
@@ -54,24 +57,14 @@ int main( void )
     int i,j;
     for (i=0; i < 3; i++)
     {
-      /*
-      highscore_list[i][0] = 'c';
-      highscore_list[i][1] = 'c';
-      highscore_list[i][2] = 'v';
-      highscore_list[i][3] = 0;
-      highscore_list[i][4] = 0;
-      */
-
       for (j = 0; j < 5; j++)
       {
         highscore_list[i][j] = eeprom_read(0x00,((i*5)+j));
       }
-
-
     }
 
 
-    temp_highscore = 0;
+    temp_highscore = ((highscore_list[3][3] << 8) |  highscore_list[3][4]);
 
 
     while (1)
@@ -102,6 +95,9 @@ int main( void )
           break;
         case 7: // spacing
           stage7_work();
+          break;
+        case 8: // spacing
+          stage8_work();
           break;
       }
       IEC(0) &= ~(1 << 8);
