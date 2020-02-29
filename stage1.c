@@ -222,8 +222,8 @@ void draw (void)
     draw_pipe(30 + (20 * i), pipespaces[i]);
 
 
-  drawnumber(235, score_counter, 2, frame);
-  drawnumber(491, highscore, 1, frame);
+  drawnumbers(235, score_counter, 0, 2, frame);
+  drawnumbers(491, highscore, 0, 1, frame);
 
 
 }

@@ -29,7 +29,7 @@ void stage5_int(void)
     drawword(highscore_list[i], ((128*i)+20), frame, 3, 3);
 
     num = ((highscore_list[i][3] << 8) |  highscore_list[i][4]);
-    drawnumber(((128*i)+60), num, 3, frame);
+    drawnumbers(((128*i)+60), num, 1, 3, frame);
   }
 
   display_image(frame);

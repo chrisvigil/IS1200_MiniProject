@@ -63,7 +63,10 @@ int main( void )
       */
 
       for (j = 0; j < 5; j++)
+      {
         highscore_list[i][j] = eeprom_read(0x00,((i*5)+j));
+      }
+
 
     }
 

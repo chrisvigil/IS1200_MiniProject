@@ -109,9 +109,8 @@ void draw_point(uint8_t x, uint8_t y, uint8_t *cframe)
     cframe[((y/8)*128)+x] &= ~(0x1 << (y%8));
 }
 
-void drawnumber(int pos, int numbers, int offset, uint8_t *frame)
+void drawnumbers(int pos, int numbers, int inv, int offset, uint8_t *frame)
 {
-	int inv = 1;
 
   int i;
   for (i = 0; i < 4; i++)
