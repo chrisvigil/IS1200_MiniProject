@@ -50,6 +50,7 @@ void stage6_int(void)
 void stage6_work(void)
 {
   	int btnstate;
+    int btn4pushed = 0;
   	int btn3pushed = 0;
     letters_counter = 0;
     select = 0;
@@ -60,11 +61,16 @@ void stage6_work(void)
   	while (stage == 6)
   	{
   		btnstate = getbtns();
-      if (btnstate & 8)
+      if ((btnstate & 8) && (btn4pushed <=0))
       {
         select++;
+        btn4pushed = 100000;
       }
-  		if (btnstate & 4)
+      else
+      {
+        btn4pushed--;
+      }
+  		if ((btnstate & 4) && (btn3pushed <= 0) )
       {
         if (letters_counter >= 25)
         {
@@ -76,7 +82,11 @@ void stage6_work(void)
           letters_counter++;
           name[select]++;
         }
-
+        btn3pushed = 100000;
+      }
+      else
+      {
+        btn3pushed--;
       }
 
       if (select > 2 )
@@ -84,7 +94,8 @@ void stage6_work(void)
         stage = 0;
       }
 
-      quicksleep(500000);
+      //while(getbtns()){}
+      //quicksleep(500000);
 
       /*
   		if (letters_counter >= 1)
