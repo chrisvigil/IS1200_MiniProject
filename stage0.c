@@ -13,6 +13,9 @@ void new_frame_0(void)
     frame[i] = 255;
   }
 
+  drawword("flappy", 39, frame,0,6);
+  drawword("bird", 70, frame,0,4);
+
   // Draws menu choices
   drawword("start", 148, frame, 3, 5);
   drawword("settings", 201, frame, 3, 8);
@@ -36,6 +39,15 @@ void stage0_int(void)
     for (i = 329; i < 364; i++)
     frame[i] = 0xFD;
   }
+  drawword("speed", 399, frame, 2, 5);
+  frame[422] = 0xD7;
+
+  drawnumbers(speed, 429, 1, frame, 2);
+
+  drawword("spacing", 446, frame, 2, 7);
+  frame[480] = 0xD7;
+  drawnumbers(pipespacing, 492, 1, frame, 2);
+
 
   // Send frame to display
   display_image(frame);
