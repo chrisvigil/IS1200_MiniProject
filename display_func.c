@@ -14,16 +14,6 @@
 #define DISPLAY_TURN_OFF_VDD (PORTFSET = 0x40)
 #define DISPLAY_TURN_OFF_VBAT (PORTFSET = 0x20)
 
-
-/* quicksleep:
-   A simple function to create a small delay.
-   Very inefficient use of computing resources,
-   but very handy in some special cases. */
-void quicksleep(int cyc) {
-	int i;
-	for(i = cyc; i > 0; i--);
-}
-
 //Sends/recives 8 bits of data over SPI
 uint8_t spi_send_recv(uint8_t data) {
 	while(!(SPI2STAT & 0x08));
@@ -112,24 +102,24 @@ void draw_point(uint8_t x, uint8_t y, uint8_t *cframe)
     cframe[((y/8)*128)+x] &= ~(0x1 << (y%8));
 }
 
-void drawnumbers(int pos, int numbers, int inv, int offset, uint8_t *frame)
+void drawnumbers(int numbers, int start, int inv, uint8_t *frame, int offset)
 {
 	// Adds numbers to a frame
   int i;
   for (i = 0; i < 4; i++)
 	{
-		frame[i + pos] = (number[( (numbers % 10)* 4) + i] << offset);
+		frame[i + start] = (number[( (numbers % 10)* 4) + i] << offset);
 		if (inv)
-			frame[i + pos] = 	~(frame[i + pos]);
+			frame[i + start] = 	~(frame[i + start]);
 	}
 
   if (numbers > 9)
   {
     for (i = 0; i < 4; i++)
 		{
-			frame[i + pos - 5] = (number[( ((numbers % 100)/10)* 4) + i] << offset);
+			frame[i + start - 5] = (number[( ((numbers % 100)/10)* 4) + i] << offset);
 			if (inv)
-				frame[i + pos - 5] = 	~(frame[i + pos - 5]);
+				frame[i + start - 5] = 	~(frame[i + start - 5]);
 		}
 
   }
@@ -137,9 +127,9 @@ void drawnumbers(int pos, int numbers, int inv, int offset, uint8_t *frame)
   {
     for (i = 0; i < 4; i++)
 		{
-			frame[i + pos - 10] = (number[( ((numbers / 100) % 1000) *4) + i] << offset);
+			frame[i + start - 10] = (number[( ((numbers / 100) % 1000) *4) + i] << offset);
 			if (inv)
-				frame[i + pos - 10] = ~(frame[i + pos - 10]);
+				frame[i + start - 10] = ~(frame[i + start - 10]);
 		}
   }
 }

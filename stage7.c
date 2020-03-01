@@ -4,7 +4,6 @@
 
 //SPACING stage
 
-uint8_t frame[512];
 uint8_t pos_7 = 0;
 
 void new_frame_7(void)
@@ -80,17 +79,16 @@ void stage7_work(void)
       {
         case 0:
           pipespacing = 20;
-          stage = 2;
           break;
         case 1:
           pipespacing = 15;
-          stage = 2;
           break;
         case 2:
           pipespacing = 10;
-          stage = 2;
           break;
       }
+      pos_2 = 3;
+      stage = 2;
     }
 
     // if btn3 was not recently pushed pos is advanced

@@ -7,7 +7,7 @@
 
 #include <stdint.h>   // Declarations of uint_8 and uint16_t
 #include <pic32mx.h>  // Declarations of system-specific addresses etc
-#include "header.h"  // Declatations for this program 
+#include "header.h"  // Declatations for this program
 
 void user_isr( void )
 {
@@ -55,6 +55,9 @@ int main( void )
     stage = 0; // detrimes stage to start in
     speed = 4; // default gamespeed
     pipespacing = 15; // default pipespacing, must be 10, 15, or 20
+    pos_0 = 0;
+    pos_2 = 0;
+    pos_4 = 0;
 
     // Read highscores from memmory
     int i,j;

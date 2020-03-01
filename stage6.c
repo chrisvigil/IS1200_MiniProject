@@ -4,9 +4,6 @@
 
 //CREDITS stage
 
-uint8_t frame[512];
-uint8_t pos_6 = 0;
-
 int letters_counter;
 int select;
 char name[3];
@@ -40,6 +37,7 @@ void stage6_work(void)
     // returns to info menu if any btn i pushed
     if (getbtns())
     {
+      pos_4 = 2;
       stage = 4;
     }
   }

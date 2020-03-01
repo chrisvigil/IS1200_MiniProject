@@ -4,9 +4,6 @@
 
 // INFO menu
 
-uint8_t frame[512];
-uint8_t pos_4 = 0;
-
 void new_frame_4(void)
 {
   // sets all pixels in frame to off
@@ -63,13 +60,14 @@ void stage4_work(void)
     {
       switch (pos_4)
       {
-        case 0:
+        case 0: // to highscores
           stage = 5;
           break;
-        case 1:
+        case 1: // to credits
           stage = 6;
           break;
-        case 2:
+        case 2: // back to settigns
+          pos_2 = 3;
           stage = 2;
           break;
       }

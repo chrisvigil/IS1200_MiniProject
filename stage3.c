@@ -4,7 +4,6 @@
 
 //SPEED!
 
-uint8_t frame[512];
 uint8_t pos_3;
 
 void new_frame_3(void)
@@ -81,17 +80,16 @@ void stage3_work(void)
       {
         case 0:
           speed = 4;
-          stage = 2;
           break;
         case 1:
           speed = 3;
-          stage = 2;
           break;
         case 2:
           speed = 2;
-          stage = 2;
           break;
       }
+      pos_2 = 3;
+      stage = 2; // Back to settings
     }
 
     // if btn3 was not recently pushed pos is advanced

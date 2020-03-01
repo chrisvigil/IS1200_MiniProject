@@ -4,8 +4,6 @@
 
 // SETTINGS menu
 
-uint8_t frame[512];
-uint8_t pos_2 = 0;
 
 void new_frame_2(void)
 {
@@ -60,7 +58,6 @@ void stage2_work(void)
 {
   int btnstate;
   int btn3pushed = 0;
-  pos_2 = 0;
 
   while (stage == 2)
   {
@@ -71,16 +68,18 @@ void stage2_work(void)
     {
       switch (pos_2)
       {
-        case 0:
+        case 0: // to speed menu
           stage = 3;
           break;
-        case 1:
+        case 1: // to spacing menu
           stage = 7;
           break;
-        case 2:
+        case 2: // to info menu
+          pos_4 = 0;
           stage = 4;
           break;
-        case 3:
+        case 3: // back to main menu
+          pos_0 = 0;
           stage = 0;
           break;
       }

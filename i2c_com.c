@@ -63,13 +63,10 @@ void i2c_stop() {
 void eeprom_write(uint8_t addrhigh, uint8_t addrlow, uint8_t data)
 {
 
+	// Start and send eeprom address + r/w bit
 	do {
 		i2c_start();
 	} while(!i2c_send(EEPROM_ADDR << 1));
-
-  /*
-  i2c_start();
-  i2c_send(0xA0);*/
 
 	// Sends high address
 	i2c_send(addrhigh);

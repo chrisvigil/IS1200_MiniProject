@@ -4,9 +4,6 @@
 
 //HIGHSCORES stage
 
-uint8_t frame[512];
-uint8_t pos_5 = 0;
-
 void new_frame_5(void)
 {
   // sets all pixels in frame to off
@@ -29,7 +26,7 @@ void stage5_int(void)
     drawword(highscore_list[i], ((128*i)+20), frame, 3, 3);
 
     num = ((highscore_list[i][3] << 8) |  highscore_list[i][4]);
-    drawnumbers(((128*i)+60), num, 1, 3, frame);
+    drawnumbers(num, ((128*i)+60),  1, frame, 3);
   }
 
   display_image(frame);
@@ -48,6 +45,7 @@ void stage5_work(void)
     // returns to info menu if btn 4 is pused
     if (btnstate & 8)
     {
+      pos_4 = 2;
       stage = 4;
     }
 
@@ -76,6 +74,6 @@ void stage5_work(void)
         temp_highscore = 0;
       }
     }
-    
+
   }
 }

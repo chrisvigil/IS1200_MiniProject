@@ -5,7 +5,6 @@
 
 // GAME stage
 
-uint8_t frame[512];
 uint8_t bird[9][2] = {{0,16},{2,16},{3,16},{0,17},{1,17},{2,17},{0,18},{1,18},{2,18}};
 uint8_t count = 0; // Used to check if birds possition should be updated in current interrupt cycle
 uint8_t jump = 0; // Used to move bird up
@@ -164,7 +163,7 @@ void bird_reset(void)
   bird [8][1] = 18;
 }
 
-draw_pipe(uint8_t x_point, uint8_t y_point) //Punkten i början på sista raden där glappet börjar
+void draw_pipe(uint8_t x_point, uint8_t y_point) //Punkten i början på sista raden där glappet börjar
 {
   // Draws top and bootom pipe-pair in frame
   // x_point gives x-cordinate of the left edge of the pipe
@@ -217,8 +216,8 @@ void draw (void)
     draw_pipe(30 + (20 * i), pipespaces[i]);
   }
 
-  drawnumbers(235, score_counter, 0, 2, frame);
-  drawnumbers(491, highscore, 0, 1, frame);
+  drawnumbers(score_counter, 235, 0, frame, 2);
+  drawnumbers(highscore, 491, 0, frame, 1);
 
 
 }

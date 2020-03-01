@@ -4,9 +4,6 @@
 
 //HIGHSCORE entry
 
-uint8_t frame[512];
-uint8_t pos_8 = 0;
-
 int letters_counter;
 int select;
 char name[3];
@@ -21,7 +18,7 @@ void new_frame_8(void)
   }
 }
 
-int check_highscore()
+int check_highscore(void)
 {
   // Addes highscore to lista and returns posstion value, 0 for 3rd, 1 for 2nd and 0 for first
 
@@ -70,15 +67,15 @@ void stage8_int(void)
   drawletter(name[1], (line2+8), frame, 3);
   drawletter(name[2], (line2+8+8), frame, 3);
 
-  drawnumbers((line2+50),temp_highscore,1,3,frame);
+  drawnumbers(temp_highscore, (line2+50),1,frame, 3);
 
   int line = 384;
   drawword("btn", line, frame, 3, 3);
-  drawnumbers((line+=14),4,1,3,frame);
+  drawnumbers(4, (line+=14), 1, frame, 3);
   frame[(line+=5)] = 0xAF;
   drawword("select", (line+=2), frame, 3, 6);
   drawword("btn", (line+=30), frame, 3, 3);
-  drawnumbers((line+=14),3,1,3,frame);
+  drawnumbers(3, (line+=14), 1, frame, 3);
   frame[(line+=5)] = 0xAF;
   drawword("next", (line+=2), frame, 3, 4);
   drawword("letter", (line+=20), frame, 3, 6);
@@ -95,6 +92,7 @@ void stage8_int(void)
 
 void stage8_work(void)
 {
+  pos_8 = 0;
     // allows user to enter 3 initials for highscore
   	int btnstate;
     int btn4pushed = 0;
