@@ -64,8 +64,9 @@ int main( void )
     }
 
 
-    temp_highscore = ((highscore_list[3][3] << 8) |  highscore_list[3][4]);
-
+    temp_highscore = (int)((highscore_list[2][3] << 8) |  highscore_list[2][4]);
+    //low_highscore = 4;
+    //low_highscore = highscore_list[2][4];
 
     while (1)
     {

@@ -76,6 +76,7 @@ void stage5_work(void)
         {
           highscore_list[i][j] = eeprom_read(0x00,(uint8_t)((i*5)+j));
         }
+        temp_highscore = 0;
       }
 
     }

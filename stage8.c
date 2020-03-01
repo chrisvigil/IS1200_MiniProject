@@ -36,40 +36,16 @@ int check_highscore()
       }
     }
 
-    /*
-    switch (listnum)
-    {
-      case 0:
-        highscore_list[2][3] = (temp_highscore & 0xFF00) >> 8;
-        highscore_list[2][4] = (temp_highscore & 0xFF);
-        break;
-      case 1:
-        highscore_list[2][3] = highscore_list[1][3];
-        highscore_list[2][4] = highscore_list[1][4];
-        highscore_list[1][3] = (temp_highscore & 0xFF00) >> 8;
-        highscore_list[1][4] = (temp_highscore & 0xFF);
-        break;
-      case 2:
-        highscore_list[2][3] = highscore_list[1][3];
-        highscore_list[2][4] = highscore_list[1][4];
-        highscore_list[1][3] = highscore_list[0][3];
-        highscore_list[1][4] = highscore_list[0][4];
-        highscore_list[0][3] = (temp_highscore & 0xFF00) >> 8;
-        highscore_list[0][4] = (temp_highscore & 0xFF);
-        break;
-    }
-    */
-
     int i,j;
     for (i = 0; i < listnum; i++)
     {
       for (j = 0; j < 5; j++)
       {
-        highscore_list[2-i][j] = highscore_list[1-i][j];
+        highscore_list[(2-i)][j] = highscore_list[(1-i)][j];
       }
     }
-    highscore_list[2-i][3] = (temp_highscore & 0xFF00) >> 8;
-    highscore_list[2-i][4] = (temp_highscore & 0xFF);
+    highscore_list[(2-i)][3] = (temp_highscore & 0xFF00) >> 8;
+    highscore_list[(2-i)][4] = (temp_highscore & 0xFF);
 
     return i;
     /*
@@ -86,15 +62,43 @@ int check_highscore()
 void stage8_int(void)
 {
   new_frame_8();
-  //drawword(name, 148, frame, 3, 3);
-  drawletter(name[0], 148, frame, 3);
-  drawletter(name[1], (148+8), frame, 3);
-  drawletter(name[2], (148+8+8), frame, 3);
+  drawword("new", 30, frame, 0, 3);
+  drawword("highscore", 50, frame, 0, 9);
+
+  frame[95] = 0xE8;
+
+  int line2 = 164;
+  drawletter(name[0], line2, frame, 3);
+  drawletter(name[1], (line2+8), frame, 3);
+  drawletter(name[2], (line2+8+8), frame, 3);
+
+  drawnumbers((line2+50),temp_highscore,1,3,frame);
+
+/*  int line = 266;
+  drawword("enter", line, frame, 3, 5);
+  drawword("name", (line+30), frame, 3, 4);*/
+
+  int line = 384;
+  drawword("btn", line, frame, 3, 3);
+  drawnumbers((line+=14),4,1,3,frame);
+  frame[(line+=5)] = 0xAF;
+  drawword("select", (line+=2), frame, 3, 6);
+  drawword("btn", (line+=30), frame, 3, 3);
+  drawnumbers((line+=14),3,1,3,frame);
+  frame[(line+=5)] = 0xAF;
+  drawword("next", (line+=2), frame, 3, 4);
+  drawword("letter", (line+=20), frame, 3, 6);
+
+
+
   int i;
   for (i=0; i < 4; i++)
   {
-    frame[(select*8)+276+i] = 0xFD;
+    frame[(select*8)+(line2+128)+i] &= 0xFD;
   }
+
+
+
   display_image(frame);
 }
 
@@ -144,6 +148,8 @@ void stage8_work(void)
 
       if (select > 2 )
       {
+        temp_highscore = ((highscore_list[2][3] << 8) |  highscore_list[2][4]);
+
         int i,j;
 
         for(i = 0; i < 3; i++)

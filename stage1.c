@@ -230,6 +230,8 @@ void draw (void)
 
 void start(void)
 {
+
+
   random_pipes();
   IEC(0) &= ~(1 << 8);
   new_frame_1();
@@ -282,19 +284,25 @@ void start(void)
   frame[208] = 0xFC;
   frame[209] = 0xFC;
   display_image(frame);
-  quicksleep(1000000);
-  while ((getbtns() & 8) == 0)
-  {
-    if ((getbtns() & 1))
-    {
-      stage = 0;
-      break;
-    }
 
+  if (stage == 1)
+  {
+    quicksleep(1000000);
+    while ((getbtns() & 8) == 0)
+    {
+      if ((getbtns() & 1))
+      {
+        stage = 0;
+        break;
+      }
+
+    }
   }
   TMR2 = 0;
   IEC(0) |= (1 << 8);
 }
+
+
 
 
 
@@ -319,6 +327,7 @@ void stage1_int(void)
       {
         temp_highscore = score_counter;
         stage = 8;
+        return;
       }
 
       score_counter = 0;

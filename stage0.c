@@ -48,7 +48,8 @@ void stage0_work(void)
 
   //uint8_t stuff = 3;
   //eeprom_write(0x00, 0x01, stuff);
-  temp = eeprom_read(0x00,0x01);
+  //temp = eeprom_read(0x00,0x01);
+  temp = temp_highscore;
 
   while (stage == 0)
   {

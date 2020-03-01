@@ -19,4 +19,5 @@ uint8_t speed;
 uint8_t pipespacing;
 
 uint16_t temp_highscore;
+//int low_highscore;
 uint8_t highscore_list[3][5];
