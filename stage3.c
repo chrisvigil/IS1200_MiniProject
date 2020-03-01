@@ -5,17 +5,18 @@
 //SPEED!
 
 uint8_t frame[512];
-uint8_t pos_3 = 0;
+uint8_t pos_3;
 
 void new_frame_3(void)
 {
-  /* sets all pixels in frame to off */
+  // sets all pixels in frame to off
   int i = 0;
   for (i = 0; i < 512; i++)
   {
-      frame[i] = 255;
+    frame[i] = 255;
   }
 
+  // Addes menu choices
   drawword("slow", 141, frame, 3, 4);
   drawword("fast", 176, frame, 3, 4);
   drawword("insane", 210, frame, 3, 6);
@@ -24,24 +25,27 @@ void new_frame_3(void)
 void stage3_int(void)
 {
   new_frame_3();
+
+  // Determines possition of underline
   int i;
   switch(pos_3)
   {
     case 0:
-    for (i = 269; i < 289; i++)
-      frame[i] = 0xFD;
-    break;
+      for (i = 269; i < 289; i++)
+        frame[i] = 0xFD;
+      break;
 
     case 1:
-    for (i = 304; i < 321; i++)
-      frame[i] = 0xFD;
-    break;
+      for (i = 304; i < 321; i++)
+        frame[i] = 0xFD;
+      break;
 
     case 2:
-    for (i = 338; i < 365; i++)
-      frame[i] = 0xFD;
-    break;
+      for (i = 338; i < 365; i++)
+        frame[i] = 0xFD;
+      break;
   }
+
   display_image(frame);
 }
 
@@ -51,29 +55,46 @@ void stage3_work(void)
   int btnstate;
   int btn3pushed = 0;
 
+  // sets pos based on current speed value
+  switch(speed)
+  {
+    case 4:
+      pos_3 = 0;
+      break;
+    case 3:
+      pos_3 = 1;
+      break;
+    case 2:
+      pos_3 = 2;
+      break;
+  }
+
   while (stage == 3)
   {
     btnstate = getbtns();
 
+    // if btn 4 is pressed speed is set and returns to setting menu
+    // is determined by current pos value
     if (btnstate & 8)
     {
-        switch (pos_3)
-        {
-          case 0:
-            speed = 4;
-            stage = 2;
-            break;
-          case 1:
-            speed = 3;
-            stage = 2;
-            break;
-          case 2:
-            speed = 2;
-            stage = 2;
-            break;
-        }
+      switch (pos_3)
+      {
+        case 0:
+          speed = 4;
+          stage = 2;
+          break;
+        case 1:
+          speed = 3;
+          stage = 2;
+          break;
+        case 2:
+          speed = 2;
+          stage = 2;
+          break;
+      }
     }
 
+    // if btn3 was not recently pushed pos is advanced
     if ((btnstate & 4) && (btn3pushed <= 0) )
     {
       if (pos_3 < 2)

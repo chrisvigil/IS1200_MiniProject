@@ -9,7 +9,7 @@ uint8_t pos_5 = 0;
 
 void new_frame_5(void)
 {
-  /* sets all pixels in frame to off */
+  // sets all pixels in frame to off
   int i = 0;
   for (i = 0; i < 512; i++)
   {
@@ -21,9 +21,9 @@ void stage5_int(void)
 {
   new_frame_5();
 
+  // Addes highscores to frame
   int i;
   int num;
-
   for (i=0; i < 3; i++)
   {
     drawword(highscore_list[i], ((128*i)+20), frame, 3, 3);
@@ -40,24 +40,21 @@ void stage5_work(void)
 {
   int btnstate;
   int btn3pushed = 0;
-  //pos = 0;
 
   while (stage == 5)
   {
     btnstate = getbtns();
-    if (btnstate & 8) //Button to the furthest left
+
+    // returns to info menu if btn 4 is pused
+    if (btnstate & 8)
     {
       stage = 4;
     }
+
+    // btn 3,2 and 1 are pused at the same time highscores are reset
     if (btnstate == 7)
     {
       int i,j;
-      /*
-      for (i = 0; i < 16; i++)
-      {
-          eeprom_write(0x00, (uint8_t)i, (uint8_t)0);
-      }*/
-
       for (i = 0; i < 15; i+=5)
       {
         for (j = 0; j < 3; j++)
@@ -78,7 +75,7 @@ void stage5_work(void)
         }
         temp_highscore = 0;
       }
-
     }
+    
   }
 }

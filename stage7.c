@@ -9,12 +9,14 @@ uint8_t pos_7 = 0;
 
 void new_frame_7(void)
 {
-  /* sets all pixels in frame to off */
+  // sets all pixels in frame to off
   int i = 0;
   for (i = 0; i < 512; i++)
   {
       frame[i] = 255;
   }
+
+  // Addes menu options
   drawword("large", 141, frame, 3, 5);
   drawword("normal", 181, frame, 3, 6);
   drawword("small", 225, frame, 3, 5);
@@ -24,6 +26,7 @@ void stage7_int(void)
 {
   new_frame_7();
 
+  // determines posstion of underline
   int i;
   switch(pos_7)
   {
@@ -51,6 +54,8 @@ void stage7_work(void)
 {
   int btnstate;
   int btn3pushed = 0;
+
+  // Sets pos dependent of current pipespacing
   switch (pipespacing)
   {
     case 15:
@@ -67,6 +72,8 @@ void stage7_work(void)
   while (stage == 7)
   {
     btnstate = getbtns();
+
+    // if btn4 is presses pipespacing is set and returns to settings menu
     if (btnstate & 8) //Button to the furthest left
     {
       switch (pos_7)
@@ -86,6 +93,7 @@ void stage7_work(void)
       }
     }
 
+    // if btn3 was not recently pushed pos is advanced
     if ((btnstate & 4) && (btn3pushed <= 0) )
     {
       if (pos_7 < 2)

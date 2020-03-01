@@ -1,5 +1,15 @@
-/* Declare init function */
+void user_isr(void);
+
+// Declaration of init functions
+void system_init(void);
+void oledhost_init(void);
+void btn_init(void);
+void interupt_init(void);
+void i2c_init(void);
 void init(void);
+
+
+
 void display_init(void);
 void display_update(void);
 uint8_t spi_send_recv(uint8_t data);

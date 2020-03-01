@@ -37,9 +37,9 @@ void stage6_int(void)
 
 void stage6_work(void)
 {
+    // returns to info menu if any btn i pushed
     if (getbtns())
     {
-      //pos_4 = 2;
       stage = 4;
     }
   }

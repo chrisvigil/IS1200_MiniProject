@@ -4,8 +4,8 @@
 
 int getbtns( void )
 {
-    // Returns state of btn4
-    int state = ((PORTD & 0xe0) >> 4) | ((PORTF & 0x2) >> 1);
+  // Returns state of btn4
+  int state = ((PORTD & 0xe0) >> 4) | ((PORTF & 0x2) >> 1);
 
-    return state;
+  return state;
 }

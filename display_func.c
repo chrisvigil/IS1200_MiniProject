@@ -1,4 +1,4 @@
-#include <stdint.h>   /* Declarations of uint_32 and the like */
+#include <stdint.h>
 #include <pic32mx.h>
 #include "header.h"
 
@@ -24,6 +24,7 @@ void quicksleep(int cyc) {
 	for(i = cyc; i > 0; i--);
 }
 
+//Sends/recives 8 bits of data over SPI
 uint8_t spi_send_recv(uint8_t data) {
 	while(!(SPI2STAT & 0x08));
 	SPI2BUF = data;
@@ -31,8 +32,9 @@ uint8_t spi_send_recv(uint8_t data) {
 	return SPI2BUF;
 }
 
+// Initialises display
 void display_init(void) {
-        DISPLAY_CHANGE_TO_COMMAND_MODE;
+  DISPLAY_CHANGE_TO_COMMAND_MODE;
 	quicksleep(10);
 	DISPLAY_ACTIVATE_VDD;
 	quicksleep(1000000);
@@ -61,6 +63,7 @@ void display_init(void) {
 	spi_send_recv(0xAF);
 }
 
+// Writes an entire frame of data to display
 void display_image(const uint8_t *data) {
 	int i, j;
 
@@ -111,7 +114,7 @@ void draw_point(uint8_t x, uint8_t y, uint8_t *cframe)
 
 void drawnumbers(int pos, int numbers, int inv, int offset, uint8_t *frame)
 {
-
+	// Adds numbers to a frame
   int i;
   for (i = 0; i < 4; i++)
 	{
@@ -143,7 +146,7 @@ void drawnumbers(int pos, int numbers, int inv, int offset, uint8_t *frame)
 
 int drawletter(char c, int start, uint8_t *frame, uint8_t shift)
 {
-	//97
+	//Addes a letter to a frame and returns last colum of letter +5
 	uint8_t l = ((c - 97) * 4);
 	int i;
 	for (i = 0; i < 4; i++)
@@ -157,11 +160,11 @@ int drawletter(char c, int start, uint8_t *frame, uint8_t shift)
 
 void drawword(char *word, int start, uint8_t *frame, uint8_t shift, int len)
 {
+	// Addes a word to a frame
 	int i;
 	for (i = 0; i < len; i++)
 	{
 		start = drawletter(word[i],start,frame,shift);
-		//start += 5;
 	}
 
 }

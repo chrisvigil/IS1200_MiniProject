@@ -2,7 +2,7 @@
 #include <pic32mx.h>
 #include "header.h"
 
-//CREDITS stage
+//HIGHSCORE entry
 
 uint8_t frame[512];
 uint8_t pos_8 = 0;
@@ -23,6 +23,10 @@ void new_frame_8(void)
 
 int check_highscore()
 {
+  // Addes highscore to lista and returns posstion value, 0 for 3rd, 1 for 2nd and 0 for first
+
+  // determines a value for listnum based on where in the highscore list new highscore is to be placed
+  // 0 for 3rd, 1 for 2nd and 0 for first
   int listnum = -1;
   if (temp_highscore > ((highscore_list[2][3] << 8) |  highscore_list[2][4]))
   {
@@ -36,6 +40,7 @@ int check_highscore()
       }
     }
 
+    // rearanges current highcores and adds new highscore to the correct possition
     int i,j;
     for (i = 0; i < listnum; i++)
     {
@@ -48,19 +53,12 @@ int check_highscore()
     highscore_list[(2-i)][4] = (temp_highscore & 0xFF);
 
     return i;
-    /*
-    int i,j;
-    for (i=0; i < 3; i++)
-    {
-      for (j = 0; j < 5; j++)
-        eeprom_write(0x00, ((i*5)+j), (highscore_list[i][j] & 0xFF));
-    }
-    */
   }
 }
 
 void stage8_int(void)
 {
+  // draws current frame
   new_frame_8();
   drawword("new", 30, frame, 0, 3);
   drawword("highscore", 50, frame, 0, 9);
@@ -74,10 +72,6 @@ void stage8_int(void)
 
   drawnumbers((line2+50),temp_highscore,1,3,frame);
 
-/*  int line = 266;
-  drawword("enter", line, frame, 3, 5);
-  drawword("name", (line+30), frame, 3, 4);*/
-
   int line = 384;
   drawword("btn", line, frame, 3, 3);
   drawnumbers((line+=14),4,1,3,frame);
@@ -89,15 +83,11 @@ void stage8_int(void)
   drawword("next", (line+=2), frame, 3, 4);
   drawword("letter", (line+=20), frame, 3, 6);
 
-
-
   int i;
   for (i=0; i < 4; i++)
   {
     frame[(select*8)+(line2+128)+i] &= 0xFD;
   }
-
-
 
   display_image(frame);
 }
@@ -105,19 +95,27 @@ void stage8_int(void)
 
 void stage8_work(void)
 {
+    // allows user to enter 3 initials for highscore
   	int btnstate;
     int btn4pushed = 0;
   	int btn3pushed = 0;
-    letters_counter = 0;
-    select = 0;
+    letters_counter = 0; // keeps track of current letter posstion
+    select = 0; // keeps track of which initial is currently beeing choosen
+
+    // name stores initials, starts at "aaa"
     name[0] = 'a';
     name[1] = 'a';
     name[2] = 'a';
+
+    // checks which placing new highscore has
     int scorepos = check_highscore();
 
   	while (stage == 8)
   	{
   		btnstate = getbtns();
+
+      // If btn4 is pushed and was not pused recently
+      // then current inital is set and select is advanced
       if ((btnstate & 8) && (btn4pushed <=0))
       {
         select++;
@@ -127,6 +125,10 @@ void stage8_work(void)
       {
         btn4pushed--;
       }
+
+      // if btn3 is pushed and was not pushed recently
+      // letters_counter is advanced which cycles initial
+      // that is currently being chosen
   		if ((btnstate & 4) && (btn3pushed <= 0) )
       {
         if (letters_counter >= 25)
@@ -146,6 +148,10 @@ void stage8_work(void)
         btn3pushed--;
       }
 
+      // When all three initials have been chosen the new lowest highscores
+      // is written to temp_highscore, the chosen initals  are added to the
+      // new highscore and finaly the new highscore list is written to the
+      // eeprom and the game resumes
       if (select > 2 )
       {
         temp_highscore = ((highscore_list[2][3] << 8) |  highscore_list[2][4]);
@@ -166,74 +172,3 @@ void stage8_work(void)
       }
   	}
   }
-
-
-
-
-
-  /*
-  int btnstate;
-  int btn3pushed = 0;
-
-  while (stage == 6)
-  {
-    btnstate = getbtns();
-    if (btnstate & 8) //Button to the furthest left
-    {
-      stage = 2;
-    }
-
-    if ((btnstate & 4) && (btn3pushed <= 0) )
-    {
-      if (pos_6 = 0)
-        pos_6 = 1;
-      else
-      btn3pushed = 100000;
-    }
-    else
-    {
-      btn3pushed--;
-    }
-  }
-}
-*/
-
-
-//Gör att den här cyklar igenom bokstäverna
-//Den ska dock bara gå till nästa om knappen trycks
-//letters_counter går upp om knappen trycks in
-
-
-/*
-
-
-//Gör att den här cyklar igenom bokstäverna
-//Den ska dock bara gå till nästa om knappen trycks
-//letters_counter går upp om knappen trycks in
-void cycle_letters(void)
-{
-	int btnstate;
-	int letters_counter = 0;
-	int i = 97;
-	int btn3pushed = 0;
-
-	while (stage == 5)
-	{
-		btnstate = getbtns();
-		if ((btnstate & 4) && (btn3pushed <= 0)) //
-			letters_counter++;
-		if (letters_counter = 1)
-		{
-			drawletter(i, 90, frame, 3);
-			i++;
-			if (i >= 123)
-		  	i = 97;
-			btn3pushed = 100000;
-		}
-		else
-		{
-	  	btn3pushed--;
-		}
-	}
-}
-//Sen måste det finnas en "OK" på knapp 4 också.*/
