@@ -12,6 +12,9 @@ void new_frame_5(void)
   {
       frame[i] = 255;
   }
+  drawword("speed", 85, frame, 3, 5);
+  frame[108] = 0xAF;
+
 }
 
 void stage5_int(void)
@@ -27,6 +30,19 @@ void stage5_int(void)
 
     num = ((highscore_list[i][3] << 8) |  highscore_list[i][4]);
     drawnumbers(num, ((128*i)+60),  1, frame, 3);
+  }
+
+  switch(speed)
+  {
+    case 4:
+      drawword("slow", 213, frame, 3, 4);
+      break;
+    case 3:
+      drawword("fast", 213, frame, 3, 4);
+      break;
+    case 2:
+      drawword("insane", 213, frame, 3, 6);
+      break;
   }
 
   display_image(frame);
