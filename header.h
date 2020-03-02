@@ -21,7 +21,7 @@ void drawnumbers(int numbers, int start, int inv, uint8_t *frame, int offset);
 int drawletter(char c, int start, uint8_t *frame, uint8_t shift);
 void drawword(char *word, int start, uint8_t *frame, uint8_t shift, int len);
 
-// Input functions 
+// Input functions
 int getbtns( void );
 void quicksleep(int cyc);
 
@@ -90,7 +90,7 @@ void new_frame_7(void);
 void stage7_int(void);
 void stage7_work(void);
 
-//Stage 8 - Highscore entry - Chris
+//Stage 8 - Highscore entry - Chris (with minor contribution from Sara)
 uint8_t pos_8;
 void new_frame_8(void);
 int check_highscore(void);
