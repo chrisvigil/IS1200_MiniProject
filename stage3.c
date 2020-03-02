@@ -93,7 +93,6 @@ void stage3_work(void)
           {
             adr_offset = (4-2) * 25;
             read_highscores();
-            temp_highscore = (int)((highscore_list[3][3] << 8) |  highscore_list[3][4]);
           }
           speed = 4;
           break;
@@ -102,7 +101,6 @@ void stage3_work(void)
           {
             adr_offset = (3-2) * 25;
             read_highscores();
-            temp_highscore = (int)((highscore_list[3][3] << 8) |  highscore_list[3][4]);
           }
           speed = 3;
           break;
@@ -111,7 +109,6 @@ void stage3_work(void)
           {
             adr_offset = (2-2) * 25;
             read_highscores();
-            temp_highscore = (int)((highscore_list[3][3] << 8) |  highscore_list[3][4]);
           }
           speed = 2;
           break;
