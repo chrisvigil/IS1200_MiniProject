@@ -31,9 +31,11 @@ uint16_t temp_highscore;
 uint8_t highscore_list[4][5];
 uint8_t frame[512];
 int highscore; // Keeps track of game sessions current best score
+int adr_offset; // highscorelist offset
 
 // main functions
 void user_isr( void );
+void read_highscores();
 int main( void );
 
 // Stage 0 - Main Menu

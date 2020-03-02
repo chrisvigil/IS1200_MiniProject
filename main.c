@@ -49,6 +49,20 @@ void user_isr( void )
   }
 }
 
+void read_highscores()
+{
+  int i,j;
+  for (i=0; i < 4; i++)
+  {
+    for (j = 0; j < 5; j++)
+    {
+      highscore_list[i][j] = eeprom_read(0x00,((i*5)+j+adr_offset));
+    }
+  }
+  // Sets temp_highscore to lowest hightscore
+  temp_highscore = (int)((highscore_list[3][3] << 8) |  highscore_list[3][4]);
+}
+
 int main( void )
 {
     init();
@@ -59,19 +73,10 @@ int main( void )
     pos_2 = 0;
     pos_4 = 0;
     highscore = 0;
+    adr_offset = (speed-2) * 25;
 
-    // Read highscores from memmory
-    int i,j;
-    for (i=0; i < 4; i++)
-    {
-      for (j = 0; j < 5; j++)
-      {
-        highscore_list[i][j] = eeprom_read(0x00,((i*5)+j));
-      }
-    }
-
-    // Sets temp_highscore to lowest hightscore
-    temp_highscore = (int)((highscore_list[3][3] << 8) |  highscore_list[3][4]);
+    // Read highscores from memory
+    read_highscores();
 
     while (1)
     {

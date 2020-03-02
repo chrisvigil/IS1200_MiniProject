@@ -48,10 +48,14 @@ void stage3_int(void)
   display_image(frame);
 }
 
-void speed_change_check(int new)
+int speed_change_check(int new)
 {
   if (new != speed)
+  {
     highscore = 0;
+    return 1;
+  }
+  return 0;
 }
 
 
@@ -85,15 +89,30 @@ void stage3_work(void)
       switch (pos_3)
       {
         case 0:
-          speed_change_check(4);
+          if(speed_change_check(4))
+          {
+            adr_offset = (4-2) * 25;
+            read_highscores();
+            temp_highscore = (int)((highscore_list[3][3] << 8) |  highscore_list[3][4]);
+          }
           speed = 4;
           break;
         case 1:
-          speed_change_check(3);
+          if(speed_change_check(3))
+          {
+            adr_offset = (3-2) * 25;
+            read_highscores();
+            temp_highscore = (int)((highscore_list[3][3] << 8) |  highscore_list[3][4]);
+          }
           speed = 3;
           break;
         case 2:
-          speed_change_check(2);
+          if(speed_change_check(4))
+          {
+            adr_offset = (2-2) * 25;
+            read_highscores();
+            temp_highscore = (int)((highscore_list[3][3] << 8) |  highscore_list[3][4]);
+          }
           speed = 2;
           break;
       }

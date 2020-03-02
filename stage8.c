@@ -165,10 +165,13 @@ void stage8_work(void)
           highscore_list[3-scorepos][i] = name[i];
         }
 
+        adr_offset = (speed-2) * 25; 
         for (i=0; i < 4; i++)
         {
           for (j = 0; j < 5; j++)
-            eeprom_write(0x00, ((i*5)+j), (highscore_list[i][j] & 0xFF));
+          {
+            eeprom_write(0x00, ((i*5)+j+adr_offset), (highscore_list[i][j] & 0xFF));
+          }
         }
         stage = 1;
       }

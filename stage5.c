@@ -57,11 +57,11 @@ void stage5_work(void)
       {
         for (j = 0; j < 3; j++)
         {
-          eeprom_write(0x00, (uint8_t)(i+j), 'a');
+          eeprom_write(0x00, (uint8_t)((i+j)+adr_offset), 'a');
         }
         for (j; j < 5; j++)
         {
-          eeprom_write(0x00, (uint8_t)(i+j), (uint8_t)0);
+          eeprom_write(0x00, (uint8_t)((i+j)+adr_offset), (uint8_t)0);
         }
       }
 
@@ -69,7 +69,7 @@ void stage5_work(void)
       {
         for (j = 0; j < 5; j++)
         {
-          highscore_list[i][j] = eeprom_read(0x00,(uint8_t)((i*5)+j));
+          highscore_list[i][j] = eeprom_read(0x00,(uint8_t)((i*5)+j)+adr_offset);
         }
         temp_highscore = 0;
       }
