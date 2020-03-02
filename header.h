@@ -30,6 +30,7 @@ int stage;
 uint16_t temp_highscore;
 uint8_t highscore_list[4][5];
 uint8_t frame[512];
+int highscore; // Keeps track of game sessions current best score
 
 // main functions
 void user_isr( void );

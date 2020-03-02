@@ -11,7 +11,7 @@ uint8_t jump = 0; // Used to move bird up
 int randomseed; // Used to further increase randomness of pipe offset
 uint8_t pipespaces[3]; // Used to store y value of the bottom of all 3 top pipes
 int score_counter = 0; // Keeps track of current score
-int highscore = 0; // Keeps track of game sessions current best score
+
 
 void *stdout = (void *) 0; // Needed to compile correctly with rand()
 

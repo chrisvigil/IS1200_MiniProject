@@ -58,6 +58,7 @@ int main( void )
     pos_0 = 0;
     pos_2 = 0;
     pos_4 = 0;
+    highscore = 0;
 
     // Read highscores from memmory
     int i,j;

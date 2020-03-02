@@ -85,10 +85,6 @@ uint8_t eeprom_read(uint8_t addrhigh, uint8_t addrlow)
 		i2c_start();
 	} while(!i2c_send(EEPROM_ADDR << 1));
 
-  /*
-  i2c_start();
-  i2c_send(0xA0);*/
-
   // Sends high address
 	i2c_send(addrhigh);
 	// Sends low address
