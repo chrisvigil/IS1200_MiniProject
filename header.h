@@ -28,7 +28,7 @@ void quicksleep(int cyc);
 // Important global variables
 int stage;
 uint16_t temp_highscore;
-uint8_t highscore_list[3][5];
+uint8_t highscore_list[4][5];
 uint8_t frame[512];
 
 // main functions

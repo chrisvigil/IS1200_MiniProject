@@ -25,15 +25,19 @@ int check_highscore(void)
   // determines a value for listnum based on where in the highscore list new highscore is to be placed
   // 0 for 3rd, 1 for 2nd and 0 for first
   int listnum = -1;
-  if (temp_highscore > ((highscore_list[2][3] << 8) |  highscore_list[2][4]))
+  if (temp_highscore > ((highscore_list[3][3] << 8) |  highscore_list[3][4]))
   {
     listnum = 0;
-    if (temp_highscore > ((highscore_list[1][3] << 8) |  highscore_list[1][4]))
+    if (temp_highscore > ((highscore_list[2][3] << 8) |  highscore_list[2][4]))
     {
       listnum = 1;
-      if (temp_highscore > ((highscore_list[0][3] << 8) |  highscore_list[0][4]))
+      if (temp_highscore > ((highscore_list[1][3] << 8) |  highscore_list[1][4]))
       {
         listnum = 2;
+        if (temp_highscore > ((highscore_list[0][3] << 8) |  highscore_list[0][4]))
+        {
+          listnum = 3;
+        }
       }
     }
 
@@ -43,13 +47,13 @@ int check_highscore(void)
     {
       for (j = 0; j < 5; j++)
       {
-        highscore_list[(2-i)][j] = highscore_list[(1-i)][j];
+        highscore_list[(3-i)][j] = highscore_list[(2-i)][j];
       }
     }
-    highscore_list[(2-i)][3] = (temp_highscore & 0xFF00) >> 8;
-    highscore_list[(2-i)][4] = (temp_highscore & 0xFF);
+    highscore_list[(3-i)][3] = (temp_highscore & 0xFF00) >> 8;
+    highscore_list[(3-i)][4] = (temp_highscore & 0xFF);
 
-    return i;
+    return listnum;
   }
 }
 
@@ -152,16 +156,16 @@ void stage8_work(void)
       // eeprom and the game resumes
       if (select > 2 )
       {
-        temp_highscore = ((highscore_list[2][3] << 8) |  highscore_list[2][4]);
+        temp_highscore = ((highscore_list[3][3] << 8) |  highscore_list[3][4]);
 
         int i,j;
 
         for(i = 0; i < 3; i++)
         {
-          highscore_list[2-scorepos][i] = name[i];
+          highscore_list[3-scorepos][i] = name[i];
         }
 
-        for (i=0; i < 3; i++)
+        for (i=0; i < 4; i++)
         {
           for (j = 0; j < 5; j++)
             eeprom_write(0x00, ((i*5)+j), (highscore_list[i][j] & 0xFF));

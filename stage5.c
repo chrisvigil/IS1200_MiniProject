@@ -21,7 +21,7 @@ void stage5_int(void)
   // Addes highscores to frame
   int i;
   int num;
-  for (i=0; i < 3; i++)
+  for (i=0; i < 4; i++)
   {
     drawword(highscore_list[i], ((128*i)+20), frame, 3, 3);
 
@@ -53,7 +53,7 @@ void stage5_work(void)
     if (btnstate == 7)
     {
       int i,j;
-      for (i = 0; i < 15; i+=5)
+      for (i = 0; i < 20; i+=5)
       {
         for (j = 0; j < 3; j++)
         {
@@ -65,7 +65,7 @@ void stage5_work(void)
         }
       }
 
-      for (i = 0; i < 3; i++)
+      for (i = 0; i < 4; i++)
       {
         for (j = 0; j < 5; j++)
         {

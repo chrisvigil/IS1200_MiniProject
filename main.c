@@ -61,7 +61,7 @@ int main( void )
 
     // Read highscores from memmory
     int i,j;
-    for (i=0; i < 3; i++)
+    for (i=0; i < 4; i++)
     {
       for (j = 0; j < 5; j++)
       {
@@ -70,7 +70,7 @@ int main( void )
     }
 
     // Sets temp_highscore to lowest hightscore
-    temp_highscore = (int)((highscore_list[2][3] << 8) |  highscore_list[2][4]);
+    temp_highscore = (int)((highscore_list[3][3] << 8) |  highscore_list[3][4]);
 
     while (1)
     {
