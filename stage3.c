@@ -48,7 +48,7 @@ void stage3_int(void)
   display_image(frame);
 }
 
-void change_check(int new)
+void speed_change_check(int new)
 {
   if (new != speed)
     highscore = 0;
@@ -85,15 +85,15 @@ void stage3_work(void)
       switch (pos_3)
       {
         case 0:
-          change_check(4);
+          speed_change_check(4);
           speed = 4;
           break;
         case 1:
-          change_check(3);
+          speed_change_check(3);
           speed = 3;
           break;
         case 2:
-          change_check(2);
+          speed_change_check(2);
           speed = 2;
           break;
       }

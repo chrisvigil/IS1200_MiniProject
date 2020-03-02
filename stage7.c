@@ -48,6 +48,11 @@ void stage7_int(void)
   display_image(frame);
 }
 
+void ps_change_check(int new)
+{
+  if (new != pipespacing)
+    highscore = 0;
+}
 
 void stage7_work(void)
 {
@@ -78,12 +83,15 @@ void stage7_work(void)
       switch (pos_7)
       {
         case 0:
+          ps_change_check(20);
           pipespacing = 20;
           break;
         case 1:
+          ps_change_check(15);
           pipespacing = 15;
           break;
         case 2:
+          ps_change_check(10);
           pipespacing = 10;
           break;
       }

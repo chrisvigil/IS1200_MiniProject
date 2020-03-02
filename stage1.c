@@ -312,7 +312,7 @@ void stage1_int(void)
     bird_reset();
     if (score_counter > highscore)
       highscore = score_counter;
-    if (score_counter > temp_highscore)
+    if ((score_counter > temp_highscore) && (pipespacing == 15))
     {
       temp_highscore = score_counter;
       stage = 8;
